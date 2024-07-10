@@ -6,11 +6,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <% unless current_page?(root_path) %>
+      <%= render 'layouts/header' %>
+    <% end %>
+    <div class = "row" >
+      <% unless current_page?(root_path) %>
+        <%= render 'layouts/sidemenu', class: "" %>
+      <% end %>
+      <%= yield %>
+    </div>
+    <% unless current_page?(root_path) %>
+      <%= render 'layouts/footer', class: "" %>
+    <% end %>
   </body>
 </html>

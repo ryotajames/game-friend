@@ -1,0 +1,21 @@
+<div class = "alert-info" style = "width: 221px;" >
+    <% if customer_signed_in? %>
+        <!--<%#= link_to new_customer_post_path(current_customer) do %>-->
+        <!--<i class="fa-solid fa-circle-plus" style="color: #0041b3;, size: 25px;" ></i>-->
+        <!--<%# end %>-->
+        <%= link_to '新規', new_customer_post_path(current_customer) %>
+    <% else %>
+    <% end %>
+    <% if current_page? == public_posts_path %>
+        <%= link_to 'ユーザー一覧', customers_path %>
+        <%= link_to 'グループ一覧', customer_groups_path %>
+        <% elsif current_page? == customers_path %>
+            <%= link_to '投稿一覧', public_posts_path %>
+            <%= link_to 'グループ一覧', customer_groups_path %>
+        <%# elsif current_page? == customer_groups_path %>
+            <%= link_to '投稿一覧', public_posts_path %>
+            <%= link_to 'ユーザー一覧', customers_path %>
+        <% else %>
+        <% end %>
+
+</div>
