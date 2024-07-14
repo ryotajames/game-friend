@@ -1,5 +1,5 @@
-module Public
-  class HomesController < ApplicationController
+# module Public
+  class Public::HomesController < ApplicationController
 
     def top
       render layout: 'application'
@@ -9,4 +9,4 @@ module Public
     end
 
   end
-end
+# end

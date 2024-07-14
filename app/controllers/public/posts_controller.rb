@@ -1,5 +1,5 @@
-module Public
-  class PostsController < ApplicationController
+# module Public
+  class Public::PostsController < ApplicationController
     before_action :authenticate_customer!
 
     def index
@@ -24,4 +24,4 @@ module Public
       params.permit(:post_introduction, :image, :customer_id)
     end
   end
-end
+# end

@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "introduction", null: false
+    t.string "main_game", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -88,6 +89,8 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
     t.string "group_name", null: false
     t.string "beginning", null: false
     t.string "main_game", null: false
+    t.string "image_id"
+    t.integer "owner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

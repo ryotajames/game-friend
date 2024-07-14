@@ -1,0 +1,52 @@
+<div style="height: auto; width: 100%;" class = "row col-12" >
+
+    <!--<div class = "col-1" ></div>-->
+    <div class = "ml-xl-5 mt-5 mb-auto" >
+      <h1>プロフィール情報</h1>
+      <%= image_tag @customer.get_profile_image(100,100), class: "ml-xl-5" %>
+      <table class = "ml-5">
+        <tbody>
+          <tr>
+            <th style = "height: 100px; width: 200px;" ><h3>ユーザー名</h3></th>
+            <td><h4><%= @customer.name %></h4></td>
+          </tr>
+          <tr>
+            <th style = "height: 100px; width: 200px;" ><h3>好きなゲーム</h3></th>
+            <td><h4><%= @customer.main_game %></h4></td>
+          </tr>
+          <tr>
+            <th style = "height: 100px; width: 200px;", class = "d-inline-block text-truncate" ><h3>自己紹介</h3></th>
+            <td><h4><%= @customer.introduction %></h4></td>
+          </tr>
+          <tr>
+            <th></th>
+            <td>
+              <% if current_customer == @customer %>
+              <%= link_to '編集へ', edit_customer_path %>
+              <% else %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class = "col-2" ></div>
+
+    <div>
+      <h2 class = "mt-xl-5 ml-5">投稿一覧</h2>
+        <% @posts.each do |a| %>
+        <table>
+          <tbody>
+            <th><%= image_tag a.image, size: "100x100", class: "mt-3" %></th>
+            <th>
+              <div class = "d-inline-block text-truncate", style = "width: 100px;" >
+                <%= a.post_introduction %>
+              </div>
+            </th>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+
+</div>

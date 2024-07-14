@@ -1,0 +1,21 @@
+<div class = "mt-5 ml-auto mr-auto", style="height: calc(100vh - 100px - 100px);" >
+  <h1>プロフィール情報編集</h1>
+
+  <%= form_with model:@customer, local:true do |f| %>
+
+    <%= f.label :プロフィール画像, class: "m-2" %>
+    <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
+
+    <%= f.label :ユーザー名, class: "m-2" %>
+    <%= f.text_field :name, class: "form-control name", placeholder:@customer.name %>
+
+    <%= f.label :好きなゲーム, class: "m-2" %>
+    <%= f.text_area :main_game, class: "form-control introduction" %>
+
+    <%= f.label :自己紹介, class: "m-2" %>
+    <%= f.text_area :introduction, class: "form-control introduction" %>
+
+    <%= f.submit class: 'btn btn-secondary' %>
+
+  <% end %>
+</div>

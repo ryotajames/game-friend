@@ -18,7 +18,9 @@
       <% unless current_page?(root_path) %>
         <%= render 'layouts/sidemenu', class: "" %>
       <% end %>
-      <%= yield %>
+      <div class = "col" >
+        <%= yield %>
+      </div>
     </div>
     <% unless current_page?(root_path) %>
       <%= render 'layouts/footer', class: "" %>

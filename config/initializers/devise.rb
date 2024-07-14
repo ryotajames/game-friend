@@ -9,6 +9,13 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  # Configure the parent class responsible for authenticating users
+
+  # config.parent_controller = 'Admins::SessionsController'
+  # config.parent_controller = 'Customers::SessionsController'
+
+  # Other Devise configuration options
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.

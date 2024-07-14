@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
   namespace :public do
     get 'search/search'
   end
@@ -7,9 +12,8 @@ Rails.application.routes.draw do
     get 'search/search'
   end
 
-  devise_for :customers, controllers: {
-  registrations:  'customers/registrations',
-  sessions: 'customers/sessions'
+  devise_for :admins, controllers: {
+  sessions: 'admins/sessions'
   }
 
   scope module: :public do
@@ -29,13 +33,9 @@ Rails.application.routes.draw do
     resources :groups, only: [:index]
   end
 
-
-  devise_for :admins, controllers: {
-  sessions: 'admins/sessions'
-  }
   namespace :admin do
     resources :customers, only: [:index, :show, :edit, :update]
+    resources :posts, only: [:index, :show, :destroy,]
     resources :admins, only: [:destroy]
   end
 end
-

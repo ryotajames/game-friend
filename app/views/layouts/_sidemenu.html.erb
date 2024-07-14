@@ -6,16 +6,18 @@
         <%= link_to '新規', new_customer_post_path(current_customer) %>
     <% else %>
     <% end %>
-    <% if current_page? == public_posts_path %>
+    <div class = "d-flex justify-content-center" >
+    <% if current_page?(public_posts_path) %>
         <%= link_to 'ユーザー一覧', customers_path %>
-        <%= link_to 'グループ一覧', customer_groups_path %>
-        <% elsif current_page? == customers_path %>
+        <%= link_to 'グループ一覧', groups_path %>
+        <% elsif current_page?(customers_path) %>
             <%= link_to '投稿一覧', public_posts_path %>
-            <%= link_to 'グループ一覧', customer_groups_path %>
-        <%# elsif current_page? == customer_groups_path %>
+            <%= link_to 'グループ一覧', groups_path %>
+        <% elsif current_page?(groups_path) %>
             <%= link_to '投稿一覧', public_posts_path %>
             <%= link_to 'ユーザー一覧', customers_path %>
         <% else %>
         <% end %>
+    </div>
 
 </div>
