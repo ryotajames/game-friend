@@ -1,0 +1,9 @@
+<div class = "row" >
+  <h2>グループ一覧</h2>
+  <%= link_to "グループ作成", new_customer_group_path(@customer) %>
+</div>
+
+<% @groups.each do |group| %>
+  <%= image_tag group.get_group_image(100,100) %>
+  <%= link_to group.group_name, customer_group_path(@customer, group) %>
+<% end %>

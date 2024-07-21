@@ -1,0 +1,6 @@
+<% @customers.each do |a| %>
+
+  <%= image_tag a.get_profile_image(50,50) %>
+  <%= link_to a.name, admins_customer_path(a) %>
+
+<% end %>

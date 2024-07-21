@@ -1,0 +1,13 @@
+<h2>フォロワー一覧</h2>
+<% if @customers.exists? %>
+  <% @customers.each do |a| %>
+    <table>
+      <tr>
+        <th>ユーザー名</th>
+        <th><%= a.name %></th>
+      </tr>
+    </table>
+  <% end %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>

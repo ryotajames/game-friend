@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_09_030626) do
+ActiveRecord::Schema.define(version: 2024_07_17_023102) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -41,10 +41,6 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
   end
 
   create_table "admins", force: :cascade do |t|
-    t.string "mail", null: false
-    t.string "password", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -64,6 +60,7 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
     t.string "introduction", null: false
     t.string "main_game", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -71,18 +68,27 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
     t.index ["email"], name: "index_customers_on_email", unique: true
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_entries_on_customer_id"
+    t.index ["room_id"], name: "index_entries_on_room_id"
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "group_users", force: :cascade do |t|
-    t.integer "customers_id"
+  create_table "group_customers", force: :cascade do |t|
+    t.integer "customer_id"
     t.integer "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["customers_id"], name: "index_group_users_on_customers_id"
-    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["customer_id"], name: "index_group_customers_on_customer_id"
+    t.index ["group_id"], name: "index_group_customers_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -95,6 +101,16 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "room_id", null: false
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_messages_on_customer_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "post_introduction", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -104,15 +120,25 @@ ActiveRecord::Schema.define(version: 2024_07_09_030626) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "following_id"
+    t.integer "followed_id"
     t.integer "follower_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "group_users", "customers", column: "customers_id"
-  add_foreign_key "group_users", "groups"
+  add_foreign_key "entries", "customers"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "group_customers", "customers"
+  add_foreign_key "group_customers", "groups"
+  add_foreign_key "messages", "customers"
+  add_foreign_key "messages", "rooms"
   add_foreign_key "posts", "customers"
 end

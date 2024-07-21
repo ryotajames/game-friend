@@ -61,6 +61,7 @@ group :production do
 end
 
 gem 'devise'
+gem 'font-awesome-sass', '~> 5.15'
 
 gem "net-smtp"
 gem "net-pop"

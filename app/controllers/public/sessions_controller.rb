@@ -4,7 +4,7 @@ class Public::SessionsController < Devise::SessionsController
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    root_path
+    about_path
   end
 
   def after_sign_out_path_for(resource)
@@ -32,4 +32,19 @@ class Public::SessionsController < Devise::SessionsController
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
   end
+
+  def reject_end_customer
+    @end_customer = EndCustomer.find_by(email: params[:end_customer][:email])
+    if @end_customer
+      if @end_cusotmer.valid_password?(params[:end_customer][:password]) && (@end_customer.is_deleted == true)
+        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください"
+        redirect_to new_end_customer_registration_path
+      else
+        flash[:notice] = "項目を入力してください"
+      end
+    else
+      flash[:notice] = "該当するユーザーが見つかりません"
+    end
+  end
+
 end

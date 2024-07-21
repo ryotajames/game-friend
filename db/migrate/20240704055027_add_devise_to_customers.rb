@@ -9,6 +9,7 @@ class AddDeviseToCustomers < ActiveRecord::Migration[6.1]
       t.string :introduction,              null: false
       t.string :main_game, null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
+      t.boolean :is_deleted, default: false, null: false
 
       ## Recoverable
       t.string   :reset_password_token

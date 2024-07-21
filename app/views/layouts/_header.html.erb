@@ -5,11 +5,11 @@
         <div class = "ml-5 mr-5" ></div>
         <%= link_to 'トップ', root_path, class: "btn btn-light ml-5 mt-auto mb-auto" %>
         <div class = "col-1" ></div>
-        <%= link_to '投稿一覧', cusotmer_posts_path, class: "btn btn-light ml-5 mt-auto mb-auto" %>
+        <%= link_to '投稿一覧', admins_posts_path, class: "btn btn-light ml-5 mt-auto mb-auto" %>
         <div class = "col-1" ></div>
-        <%= link_to 'ユーザー一覧', customer_path, class: "btn btn-light  ml-5 mt-auto mb-auto" %>
+        <%= link_to 'ユーザー一覧', admins_customers_path, class: "btn btn-light  ml-5 mt-auto mb-auto" %>
         <div class = "col-1" ></div>
-        <%= link_to 'ログアウト', admin_admin_path, method: :delete, class: "btn btn-light ml-5 mt-auto mb-auto" %>
+        <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "btn btn-light ml-5 mt-auto mb-auto" %>
 
     <% elsif customer_signed_in? %>
 

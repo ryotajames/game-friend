@@ -1,0 +1,41 @@
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>グループ名</th>
+      <th>紹介文</th>
+      <th>グループ人数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= image_tag @group.get_group_image(100,100) %>
+      </td>
+      <td>
+        <%= @group.group_name %>
+      </td>
+      <td>
+        <%= @group.beginning %>
+      </td>
+      <td>
+        <%= @group.group_customers.count %>
+      </td>
+      <td>
+        <% @group.group_customers.each do |group_customer| %>
+          <%= group_customer.customer.name %>
+        <% end %>
+      </td>
+      <td>
+        <% if @group.owner_id == current_customer.id %>
+          <%= link_to '編集', edit_customer_group_path(@group) %>
+        <% elsif @group.includesCustomer?(current_customer) %>
+          <%= link_to "このグループを抜ける", customer_group_group_customers_path(@customer,@group), method: :delete %>
+
+        <% else %>
+          <%= link_to "このグループに参加する", customer_group_group_customers_path(@customer,@group,@group_customer), method: :post %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>

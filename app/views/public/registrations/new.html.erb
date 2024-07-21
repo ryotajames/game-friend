@@ -1,25 +1,30 @@
-<div style="height: calc(100vh - 100px - 100px); width: 1200px;" >
+<div style="width: 1200px;" >
 
-  <div class = "text-center m-auto" >
+  <div class = "text-center ml-auto mr-auto mt-4 mb-4" >
     <h2>新規登録</h2>
 
     <%= form_with model: @customer, url: customer_registration_path, method: :post, local: true do |f| %>
       <div class="field">
-        <%= f.label :メールアドレス %><br />
+        <%= f.label :メールアドレス %><br/>
         <%= f.email_field :email, autofocus: true %>
       </div>
 
-      <div class="field">
-        <%= f.label :ユーザー名 %><br />
+      <div class="field mt-2">
+        <%= f.label :ユーザー名 %><br/>
         <%= f.text_field :name %>
       </div>
 
-      <div class="field">
+      <div class="field mt-2">
+        <%= f.label :好きなゲーム（ジャンル可） %><br />
+        <%= f.text_field :main_game %>
+      </div>
+
+      <div class="field mt-2">
         <%= f.label :自己紹介 %><br />
         <%= f.text_field :introduction %>
       </div>
 
-      <div class="field">
+      <div class="field mt-2">
         <%= f.label :パスワード %>
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -27,17 +32,16 @@
         <%= f.password_field :password, autocomplete: "new-password" %>
       </div>
 
-      <div class="field">
+      <div class="field mt-2">
         <%= f.label :パスワードの確認 %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
 
-      <div class="actions">
+      <div class="actions mt-2">
         <%= f.submit "Sign up" %>
       </div>
     <% end %>
 
-    <%#= render "devise/shared/links" %>
   </div>
 
 </div>

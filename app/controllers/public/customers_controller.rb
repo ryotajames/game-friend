@@ -1,14 +1,36 @@
 # module Public
   class Public::CustomersController < ApplicationController
+    before_action :authenticate_customer!
 
     def index
       @customers = Customer.all
+      # @customer = Customer.find(params[:id])
     end
 
     def show
       @customer = Customer.find(params[:id])
       @posts = @customer.posts
+
+      @currentCustomerEntry=Entry.where(customer_id: current_customer.id)
+      @customerEntry=Entry.where(customer_id: @customer.id)
+      if @customer.id == current_customer.id
+      else
+        @currentCustomerEntry.each do |cu|
+          @customerEntry.each do |u|
+            if cu.room_id == u.room_id then
+              @isRoom = true
+              @roomId = cu.room_id
+            end
+          end
+        end
+        if @isRoom
+        else
+          @room = Room.new
+          @entry = Entry.new
+        end
+      end
     end
+
 
     def edit
     @customer = current_customer
@@ -22,6 +44,18 @@
     else
       render "edit"
     end
+    end
+
+    def check
+
+    end
+
+    def withdraw
+      @customer = current_customer
+      @customer.update(is_deleted: true)
+      reset_session
+      flash[:notice] = "退会処理を実行いたしました"
+      redirect_to root_path
     end
 
     private
