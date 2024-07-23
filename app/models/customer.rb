@@ -20,7 +20,9 @@ class Customer < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   has_many :rooms, dependent: :destroy
-
+  
+  has_many :games, dependent: :destroy
+  
   has_one_attached :profile_image
   # has_many :yyy, through: :xxx, source: :zzz
 

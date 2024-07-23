@@ -1,9 +1,18 @@
 <div class = "row" >
-  <h2>グループ一覧</h2>
-  <%= link_to "グループ作成", new_customer_group_path(@customer) %>
+  <div class = "ml-auto mr-auto text-center mt-3" >
+    <h2>グループ一覧</h2>
+    <%= link_to "グループ作成", new_customer_group_path(@customer) %>
+  </div>
 </div>
 
-<% @groups.each do |group| %>
-  <%= image_tag group.get_group_image(100,100) %>
-  <%= link_to group.group_name, customer_group_path(@customer, group) %>
-<% end %>
+<div class = "row col-12" >
+  <% @groups.each do |group| %>
+
+  <div class = "col-2" ></div>
+
+  <div class = "col-2" >
+    <%= image_tag group.get_group_image(100,100) %>
+    <%= link_to group.group_name, customer_group_path(@customer, group) %>
+  <% end %>
+  </div>
+</div>

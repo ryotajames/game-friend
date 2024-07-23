@@ -1,11 +1,10 @@
 <div class = "alert-info" style = "width: 206px;" >
     <% if customer_signed_in? %>
-        <div class = "d-flex justify-content-center" >
-            <%= link_to new_customer_post_path(current_customer) do %>
-                <i class="fa-light fa-circle-plus font-size: 24px;" style="color: #003ca3;"></i>
+        <div class = "d-flex justify-content-center mt-3" >
+            <%= link_to new_game_path do %>
+                <i class="fa-solid fa-circle-plus" style="color: #0840a1; font-size: 60px;"></i>
             <% end %>
         </div>
-        <%= link_to '新規投稿', new_customer_post_path(current_customer), class: "d-flex justify-content-center btn btn-info rounded-circle mt-3" %>
     <% else %>
     <% end %>
     <div class = "" >
@@ -13,25 +12,32 @@
         <div class = "d-flex justify-content-center mt-5 " >
             <%= link_to 'ユーザー一覧', customers_path, class: "btn btn-light", style: "width:150px;" %><br />
         </div>
-        <div class = "d-flex justify-content-center mt-5" >
+        <div class = "d-flex justify-content-center mt-5 mb-5" >
             <%= link_to 'グループ一覧', groups_path, class: "btn btn-light", style: "width:150px;" %>
         </div>
         <% elsif current_page?(customers_path) %>
             <div class = "d-flex justify-content-center mt-5 " >
                 <%= link_to '投稿一覧', public_posts_path, class: "btn btn-light", style: "width:150px;" %>
             </div>
-            <div class = "d-flex justify-content-center mt-5 " >
+            <div class = "d-flex justify-content-center mt-5 mb-5" >
                 <%= link_to 'グループ一覧', groups_path, class: "btn btn-light", style: "width:150px;" %>
             </div>
         <% elsif current_page?(groups_path) %>
             <div class = "d-flex justify-content-center mt-5 " >
                 <%= link_to '投稿一覧', public_posts_path, class: "btn btn-light", style: "width:150px;" %>
             </div>
-            <div class = "d-flex justify-content-center mt-5 " >
+            <div class = "d-flex justify-content-center mt-5 mb-5" >
                 <%= link_to 'ユーザー一覧', customers_path, class: "btn btn-light", style: "width:150px;" %>
             </div>
         <% else %>
         <% end %>
     </div>
+
+    <% if current_page?(customer_path(current_customer)) %>
+        <% @games.each do |game| %>
+            <%= link_to game.game_name, customer_path(current_customer) %>
+        <% end %>
+    <% end %>
+
 
 </div>

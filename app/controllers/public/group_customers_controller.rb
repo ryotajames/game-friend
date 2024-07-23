@@ -7,7 +7,7 @@ class Public::GroupCustomersController < ApplicationController
   end
 
   def destroy
-    group_customer = current_customer.group_customer.find_by(group_id: params[:group_id])
+    group_customer = current_customer.group_customers.find_by(group_id: params[:group_id])
     group_customer.destroy
     redirect_to request.referer
   end

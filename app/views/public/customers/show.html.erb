@@ -81,18 +81,19 @@
 
     <div>
       <h2 class = "mt-xl-5 ml-5">投稿一覧</h2>
+
         <% @posts.each do |a| %>
-        <table>
-          <tbody>
-            <th><%= image_tag a.image, size: "100x100", class: "mt-3" %></th>
-            <th>
-              <div class = "d-inline-block text-truncate", style = "width: 100px;" >
-                <%= a.post_introduction %>
-              </div>
-            </th>
-          </tbody>
-        </table>
-      <% end %>
+          <table>
+            <tbody>
+              <th><%= image_tag a.image, size: "100x100", class: "mt-3" %></th>
+              <th>
+                <div class = "d-inline-block text-truncate", style = "width: 100px;" >
+                  <%= link_to a.post_introduction, game_post_path(game_id: a.game.id, post_id: a.id) %>
+                </div>
+              </th>
+            </tbody>
+          </table>
+        <% end %>
     </div>
 
 </div>

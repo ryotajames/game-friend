@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_17_023102) do
+ActiveRecord::Schema.define(version: 2024_07_21_093222) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 2024_07_17_023102) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "games", force: :cascade do |t|
+    t.string "game_name"
+    t.integer "customer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "group_customers", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "group_id"
@@ -113,10 +120,10 @@ ActiveRecord::Schema.define(version: 2024_07_17_023102) do
 
   create_table "posts", force: :cascade do |t|
     t.string "post_introduction", null: false
+    t.integer "game_id"
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "customer_id", null: false
-    t.index ["customer_id"], name: "index_posts_on_customer_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -140,5 +147,4 @@ ActiveRecord::Schema.define(version: 2024_07_17_023102) do
   add_foreign_key "group_customers", "groups"
   add_foreign_key "messages", "customers"
   add_foreign_key "messages", "rooms"
-  add_foreign_key "posts", "customers"
 end

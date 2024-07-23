@@ -4,12 +4,14 @@
 
     def index
       @customers = Customer.all
-      # @customer = Customer.find(params[:id])
+      # @post = Post.find(params[:id])
+      @game = Game.all
     end
 
     def show
       @customer = Customer.find(params[:id])
       @posts = @customer.posts
+      @games = Game.all
 
       @currentCustomerEntry=Entry.where(customer_id: current_customer.id)
       @customerEntry=Entry.where(customer_id: @customer.id)
@@ -33,8 +35,8 @@
 
 
     def edit
-    @customer = current_customer
-    @post = @customer.posts
+      @customer = current_customer
+      @post = @customer.posts
     end
 
     def update

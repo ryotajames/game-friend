@@ -6,11 +6,21 @@
       @posts = Post.all
     end
 
+    def show
+      @post = Post.find(params[:id])
+      @game = Game.find(params[:game_id])
+    end
+
     def new
+      @game = Game.find(params[:game_id])
+      @post = @game.posts.new()
+      @customer = current_customer
     end
 
     def create
-      @post = Post.new(post_params)
+      @game = Game.find(params[:game_id])
+      @post = @game.posts.new(post_params)
+      @post.customer = current_customer
       if @post.save
         redirect_to about_path, notice: '正常に投稿されました。'
       else
@@ -21,7 +31,7 @@
     private
 
     def post_params
-      params.permit(:post_introduction, :image, :customer_id)
+      params.require(:post).permit(:image, :post_introduction)
     end
   end
 # end

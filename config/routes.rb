@@ -32,17 +32,20 @@ Rails.application.routes.draw do
         get 'check'
       end
 
-      resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
-        resource :favorite, only: [:create, :destroy]
-        get "search", to: "searches#search"
-      end
-
       resources :groups, only: [:new, :show, :create, :edit, :update] do
         resources :group_customers, only: [:create, :destroy]
       end
+
     end
 
+    resources :games, only: [:new, :create] do
+    resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
+        resource :favorite, only: [:create, :destroy]
+        get "search", to: "searches#search"
+      end
+    end
     resources :groups, only: [:index]
+
   end
 
   resources :messages, only: [:create]

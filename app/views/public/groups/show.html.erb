@@ -23,15 +23,14 @@
       </td>
       <td>
         <% @group.group_customers.each do |group_customer| %>
-          <%= group_customer.customer.name %>
+          <%= link_to group_customer.customer.name, customer_path(group_customer.customer_id) %>
         <% end %>
       </td>
       <td>
         <% if @group.owner_id == current_customer.id %>
           <%= link_to '編集', edit_customer_group_path(@group) %>
         <% elsif @group.includesCustomer?(current_customer) %>
-          <%= link_to "このグループを抜ける", customer_group_group_customers_path(@customer,@group), method: :delete %>
-
+          <%= link_to "このグループを抜ける", customer_group_group_customer_path(@customer,@group), method: :delete %>
         <% else %>
           <%= link_to "このグループに参加する", customer_group_group_customers_path(@customer,@group,@group_customer), method: :post %>
         <% end %>

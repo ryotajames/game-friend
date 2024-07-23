@@ -11,8 +11,8 @@ class Public::GroupsController < ApplicationController
   def show
     @post = Post.new
     @group = Group.find(params[:id])
-    @customer = current_customer
-    @group_custoemr = GroupCustomer.where(customer_id: @customer, group: @group).last
+    @customer = Customer.find(params[:id])
+    @group_customer = GroupCustomer.where(customer_id: @customer, group: @group).last
   end
 
   def new
