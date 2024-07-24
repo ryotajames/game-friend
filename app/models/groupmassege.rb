@@ -1,0 +1,2 @@
+class Groupmassege < ApplicationRecord
+end

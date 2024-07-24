@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_21_093222) do
+ActiveRecord::Schema.define(version: 2024_07_24_094824) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2024_07_21_093222) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2024_07_21_093222) do
   end
 
   create_table "favorites", force: :cascade do |t|
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -96,6 +98,11 @@ ActiveRecord::Schema.define(version: 2024_07_21_093222) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_group_customers_on_customer_id"
     t.index ["group_id"], name: "index_group_customers_on_group_id"
+  end
+
+  create_table "groupmasseges", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "groups", force: :cascade do |t|

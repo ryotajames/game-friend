@@ -1,6 +1,14 @@
-<% @customers.each do |a| %>
-
-  <%= image_tag a.get_profile_image(50,50) %>
-  <%= link_to a.name, admins_customer_path(a) %>
-
-<% end %>
+<div class = "row col-12" >
+  <h3>ユーザー一覧</h3>
+    <% @customers.each do |a| %>
+      <div class = "col-1" ></div>
+        <div class = "column" >
+          <div>
+            <%= image_tag a.get_profile_image(50,50) %>
+          </div>
+          <div>
+            <%= link_to a.name, admins_customer_path(a) %>
+          </div>
+        </div>
+    <% end %>
+</div>

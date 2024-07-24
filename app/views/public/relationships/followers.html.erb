@@ -4,7 +4,7 @@
     <table>
       <tr>
         <th>ユーザー名</th>
-        <th><%= a.name %></th>
+        <th><%= link_to a.name, customer_path(a) %></th>
       </tr>
     </table>
   <% end %>

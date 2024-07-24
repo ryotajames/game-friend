@@ -6,16 +6,40 @@
 
 <%= link_to "一覧に戻る", public_posts_path %>
 
-<% if @messages.present? %>
-  <% @messages.each do |m| %>
-    <% @myCustomerId == m.customer.id %>
-    <p><%= m.customer.name %></p>
-      <p><%= m.message %></p>
+<div class="container">
+  <% if @messages.present? %>
+    <% @messages.each do |m| %>
+      <% if @myCustomerId == m.customer.id %>
+        <div class="row justify-content-end mb-2">
+          <div class="col-auto">
+            <div class="card bg-primary text-white">
+              <div class="card-body p-2">
+                <p class="card-text"><%= m.message %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="row justify-content-start mb-2">
+          <div class="col-auto">
+            <div class="card bg-light">
+              <div class="card-body p-2">
+                <p class="card-text"><%= m.message %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
 
 <%= form_for @message do |f| %>
-  <%= f.text_field :message, placeholder: "メッセージを入力してください", size: 50, class:"form-text-field" %>
-    <%= f.hidden_field :room_id, value: @room.id %>
-      <%= f.submit "投稿", class: 'form-submit' %>
+
+  <div class = "text-center" >
+    <%= f.text_field :message, placeholder: "メッセージを入力してください", size: 50, class:"form-text-field" %>
+      <%= f.hidden_field :room_id, value: @room.id %>
+        <%= f.submit "投稿", class: 'form-submit' %>
+  </div>
 <% end %>

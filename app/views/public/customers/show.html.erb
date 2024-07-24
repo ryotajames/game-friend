@@ -88,7 +88,7 @@
               <th><%= image_tag a.image, size: "100x100", class: "mt-3" %></th>
               <th>
                 <div class = "d-inline-block text-truncate", style = "width: 100px;" >
-                  <%= link_to a.post_introduction, game_post_path(game_id: a.game.id, post_id: a.id) %>
+                  <%= link_to a.post_introduction, post_path(a) %>
                 </div>
               </th>
             </tbody>
