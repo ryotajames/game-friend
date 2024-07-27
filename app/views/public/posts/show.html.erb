@@ -1,15 +1,57 @@
-<div class = "m-auto", style="height: calc(100vh - 100px - 100px);" >
+<!--<div class = "m-auto", style="height: calc(100vh - 100px - 100px);" >-->
 
   <div class = "row" >
     <h2 class = "text-center mt-3 mr-5" >投稿詳細</h2>
-    <h5><%= link_to "ユーザー詳細ページへ", customer_path(@post.customer.id) %></h5>
+    <h5><%= link_to "このユーザーの詳細ページへ", customer_path(@post.customer.id) %></h5>
   </div>
 
   <div class = "row col-12" >
 
     <div class = "col-1" ></div>
-    <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
-    <div class = "col-1" ></div>
-    <h5 class = "d-flex align-items-center" ><%= @post.post_introduction %></h5>
+
+    <div class = "column" >
+      <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
+      <%= render "public/favorites/btn", post: @post %>
+    </div>
+
+    <div class = "col-2" ></div>
+
+    <div class = "column" >
+      <h5 class = "d-flex align-items-center" ><%= @post.post_introduction %></h5>
+
+      <div>
+        <%= form_with model: [@post, @comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
+
+      <div>
+        <p class = "mt-4" >コメント件数：<%= @post.comments.count %></p>
+
+        <% @post.comments.each do |post_comment| %>
+          <%#= image_tag post_comment.customer.get_profile_image(100,100) %>
+          <table>
+            <tr>
+            <td style = "width:100px;" >
+              <%= link_to post_comment.customer.name, customer_path(post_comment.customer) %>
+            </td>
+            <td>
+              <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+            </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td><%= post_comment.comment %></td>
+            </tr>
+          </table>
+      </div>
+        <% end %>
+      </div>
+
+    </div>
+
   </div>
 </div>
+

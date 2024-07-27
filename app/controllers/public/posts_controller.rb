@@ -1,13 +1,16 @@
 # module Public
   class Public::PostsController < ApplicationController
-    before_action :authenticate_customer!
+    before_action :authenticate_customer!, only: [:index]
 
     def index
       @posts = Post.all
+      @customer = current_customer
     end
 
     def show
       @post = Post.find(params[:id])
+      @comment = Comment.new
+      @comments = Comment.all
     end
 
     def new

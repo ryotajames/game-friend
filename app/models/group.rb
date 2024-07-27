@@ -3,6 +3,7 @@ class Group < ApplicationRecord
   has_many :customers, through: :group_customers, source: :customer
   belongs_to :owner, class_name: 'Customer'
   has_many :customers, through: :group_customers
+  has_many :messages, dependent: :destroy
 
   validates :group_name, presence: true
   validates :beginning, presence: true
@@ -22,6 +23,20 @@ class Group < ApplicationRecord
 
   def includesCustomer?(customer)
     group_customers.exists?(customer_id: customer.id)
+  end
+
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @group = Group.where("group_name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @group = Group.where("group_name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @group = Group.where("group_name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @group = Group.where("group_name LIKE?","%#{word}%")
+    else
+      @group = Group.all
+    end
   end
 
 end

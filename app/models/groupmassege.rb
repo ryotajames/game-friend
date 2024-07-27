@@ -1,2 +1,0 @@
-class Groupmassege < ApplicationRecord
-end

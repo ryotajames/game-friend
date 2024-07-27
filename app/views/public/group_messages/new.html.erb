@@ -1,8 +1,6 @@
-<% @entries.each do |e| %>
-  <% if @myCustomerId != e.customer.id %>
-    <h2><%= e.customer.name %>さんとのトークルーム</h2>
-  <% end %>
-<% end %>
+
+  <h2><%= @group.group_name %>さんとのトークルーム</h2>
+
 
 <%= link_to "一覧に戻る", public_posts_path %>
 

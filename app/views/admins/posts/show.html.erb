@@ -7,9 +7,21 @@
 
   <div class = "row col-12" >
     <div class = "col-1" ></div>
-    <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
+    <div class = "column" >
+      <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
+      <p class = "mt-4" >コメント件数：<%= @post.comments.count %></p>
+      <%= @post.favorites.count %>いいね
+    </div>
     <div class = "col-1" ></div>
-    <h5 class = "d-flex align-items-center" ><%= @post.post_introduction %></h5>
+    <div class = "column" >
+      <h5 class = "d-flex align-items-center" ><%= @post.post_introduction %></h5>
+      <% @post.comments.each do |post_comment| %>
+        <div class = "column" >
+          <%= post_comment.customer.name %>
+          <%= post_comment.comment %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
 </div>

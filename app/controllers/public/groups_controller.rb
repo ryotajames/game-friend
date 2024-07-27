@@ -9,10 +9,17 @@ class Public::GroupsController < ApplicationController
   end
 
   def show
-    @post = Post.new
+    # @post = Post.new
     @group = Group.find(params[:id])
     @customer = Customer.find(params[:id])
+    @messages = @group.messages.includes(:customer).order(created_at: :asc)
+    # @message = @group.messages.new
     @group_customer = GroupCustomer.where(customer_id: @customer, group: @group).last
+    @group_customers = GroupCustomer.where(group: @group).pluck(:customer_id)
+    
+    @room = Room.new
+    @entry = Entry.new
+    
   end
 
   def new

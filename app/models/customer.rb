@@ -4,7 +4,7 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:name]
 
-  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true, presence: true
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -12,6 +12,7 @@ class Customer < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   has_many :favorites, dependent: :destroy
+
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :group_customers, dependent: :destroy
@@ -20,11 +21,26 @@ class Customer < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   has_many :rooms, dependent: :destroy
-  
+
   has_many :games, dependent: :destroy
-  
+
   has_one_attached :profile_image
   # has_many :yyy, through: :xxx, source: :zzz
+
+  # 検索方法分岐
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @customer = Customer.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @customer = Customer.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @customer = Customer.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @customer = Customer.where("name LIKE?","%#{word}%")
+    else
+      @customer = Customer.all
+    end
+  end
 
   def follow(customer)
     active_relationships.create(followed_id: customer.id)

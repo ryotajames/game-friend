@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   }
 
   namespace :public do
-    get 'search/search'
+    get 'search', to: 'searches#search'
   end
 
   namespace :admin do
-    get 'search/search'
+    get 'search', to: 'searches#search'
   end
 
   devise_for :admins, skip: [:passwords], controllers: {
@@ -27,29 +27,25 @@ Rails.application.routes.draw do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"
-
       collection do
         get 'check'
       end
-
       resources :groups, only: [:new, :show, :create, :edit, :update] do
         resources :group_customers, only: [:create, :destroy]
-        resources :group_messages, only: [:create]
+        resources :group_messages, only: [:create, :new]
       end
-
     end
-
-
-    resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
-        resource :favorite, only: [:create, :destroy]
-        get "search", to: "searches#search"
+      resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
+        resources :favorites, only: [:create, :destroy]
+        resources :comments, only: [:create]
       end
     resources :groups, only: [:index]
 
   end
 
-  resources :messages, only: [:create]
-  resources :rooms, only: [:create, :index, :show]
+  resources :rooms, only: [:create, :index, :show] do
+    resources :messages, only: [:create]
+  end
 
   namespace :admins do
     resources :customers, only: [:index, :show, :edit, :update]
