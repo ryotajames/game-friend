@@ -52,6 +52,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :show, :destroy]
     resources :admins, only: [:destroy]
 
+    get "followings" => "relationships#followings", as: "followings"
+    get "followers" => "relationships#followers", as: "followers"
     patch "withdraw/:id" => "customers#withdraw", as: "withdraw"
     patch "comeback/:id" => "customers#comeback", as: "comeback"
   end

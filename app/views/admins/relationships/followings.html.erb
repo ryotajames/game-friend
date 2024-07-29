@@ -1,0 +1,13 @@
+<h2>フォロー中のユーザー一覧</h2>
+<% if @customers.exists? %>
+<table>
+  <tr>
+    <th>ユーザー名</th>
+    <% @customers.each do |a| %>
+        <th><%= a.name %></th>
+    <% end %>
+    </tr>
+</table>
+<% else %>
+<p>フォロー中のユーザーはいません</p>
+<% end %>

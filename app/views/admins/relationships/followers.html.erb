@@ -1,0 +1,13 @@
+<h2>フォロワー一覧</h2>
+<% if @customers.exists? %>
+  <% @customers.each do |a| %>
+    <table>
+      <tr>
+        <th>ユーザー名</th>
+        <th><%= link_to a.name, customer_path(a) %></th>
+      </tr>
+    </table>
+  <% end %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>
