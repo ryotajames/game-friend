@@ -61,6 +61,7 @@ group :production do
 end
 
 gem 'devise'
+gem 'active_storage_validations'
 
 gem "net-smtp"
 gem "net-pop"

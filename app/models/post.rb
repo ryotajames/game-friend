@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_one_attached :image
 
+  validates :image, attached: true, content_type: ['image/png', 'image/jpeg']
+
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer.id)
   end

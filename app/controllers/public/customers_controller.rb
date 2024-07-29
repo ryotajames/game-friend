@@ -62,7 +62,7 @@
 
     private
     def customer_params
-      params.require(:customer).permit(:email, :name, :introduction, :main_game, :password, :password_confirmation)
+      params.require(:customer).permit(:email, :name, :introduction, :main_game, :password, :password_confirmation, :profile_image)
     end
 
 
