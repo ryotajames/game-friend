@@ -16,6 +16,7 @@ class Customer < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :group_customers, dependent: :destroy
+  has_many :groups, through: :group_customers
 
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy

@@ -1,18 +1,19 @@
 
-  <h2><%= @group.group_name %>さんとのトークルーム</h2>
+  <h2><%= @group.group_name %>のトークルーム</h2>
 
+<%#= @group_messages %>
 
-<%= link_to "一覧に戻る", public_posts_path %>
+<%= link_to "一覧に戻る", groups_path(@group) %>
 
 <div class="container">
-  <% if @messages.present? %>
-    <% @messages.each do |m| %>
-      <% if @myCustomerId == m.customer.id %>
+  <% if @group_messages.present? %>
+    <% @group_messages.each do |m| %>
+      <% if current_customer.id == m.customer.id %>
         <div class="row justify-content-end mb-2">
           <div class="col-auto">
             <div class="card bg-primary text-white">
               <div class="card-body p-2">
-                <p class="card-text"><%= m.body %></p> <!-- 修正: 'message' → 'body' -->
+                <p class="card-text"><%= m.body %></p>
               </div>
             </div>
           </div>
@@ -22,7 +23,8 @@
           <div class="col-auto">
             <div class="card bg-light">
               <div class="card-body p-2">
-                <p class="card-text"><%= m.body %></p> <!-- 修正: 'message' → 'body' -->
+                <%= @group_message.customer.name %>
+                <p class="card-text"><%= m.body %></p>
               </div>
             </div>
           </div>
@@ -36,14 +38,16 @@
 <%#= debug params %>
 
 
-<%= form_with(model: [@room, @message], local: true) do |f| %>
+<%= form_with(model: [@group, @group_message], local: true) do |f| %>
   <div class="text-center">
     <%= f.text_field :body, placeholder: "メッセージを入力してください", size: 50, class: "form-text-field" %>
-    <%= f.hidden_field :room_id, value: @room.id %>
+
+    <%= f.hidden_field :customer_id, value: @customer.id %>
+    <%= f.hidden_field :group_id, value: @group.id %>
+
     <% if @group.present? %>
-      <!-- グループ関連の隠しフィールドは必要な場合のみ使用 -->
-      <%#= f.hidden_field :group_id, value: @group.id %>
     <% end %>
+
     <%= f.submit "送信", class: 'form-submit' %>
   </div>
 <% end %>

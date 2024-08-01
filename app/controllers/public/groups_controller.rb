@@ -12,14 +12,14 @@ class Public::GroupsController < ApplicationController
     # @post = Post.new
     @group = Group.find(params[:id])
     @customer = Customer.find(params[:id])
-    @messages = @group.messages.includes(:customer).order(created_at: :asc)
+    # @messages = @group.messages.includes(:customer).order(created_at: :asc)
     # @message = @group.messages.new
     @group_customer = GroupCustomer.where(customer_id: @customer, group: @group).last
     @group_customers = GroupCustomer.where(group: @group).pluck(:customer_id)
-    
+
     @room = Room.new
     @entry = Entry.new
-    
+
   end
 
   def new
@@ -50,7 +50,19 @@ class Public::GroupsController < ApplicationController
     end
   end
 
+  def room
+    @group = Group.find(params[:group_id])
+    @customer = current_customer
+    @messages = @group.group_messages
+    @group_message = GroupMessage.new
+    
+  end
+
     private
+
+    def set_group
+      @group = Group.find(params[:id])
+    end
 
     def group_params
       params.require(:group).permit(:group_name, :main_game, :beginning, :group_image)

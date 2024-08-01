@@ -48,7 +48,7 @@
     </table><br />
 
     <% if @group.group_customers.exists?(customer_id: current_customer.id) %>
-      <%#= link_to "チャットへ", new_customer_group_group_message_path(customer_id: @group.customers, group_id: @group), class: "btn btn-primary btn-lg user-show-chat" %>
+      <%= link_to "チャットへ", group_room_path(group_id: @group), class: "btn btn-primary btn-lg user-show-chat" %>
     <% else %>
     <% end %>
 
@@ -64,5 +64,6 @@
         <%# end %>
       <%#end %>
     <%# end %>
+    
   </div>
 </div>

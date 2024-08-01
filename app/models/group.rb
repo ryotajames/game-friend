@@ -1,9 +1,9 @@
 class Group < ApplicationRecord
   has_many :group_customers, dependent: :destroy
-  has_many :customers, through: :group_customers, source: :customer
+  has_many :customers, through: :group_customers, source: :customer, dependent: :destroy
   belongs_to :owner, class_name: 'Customer'
   has_many :customers, through: :group_customers
-  has_many :messages, dependent: :destroy
+  has_many :group_messages, dependent: :destroy
 
   validates :group_name, presence: true
   validates :beginning, presence: true

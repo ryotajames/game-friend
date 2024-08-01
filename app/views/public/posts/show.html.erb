@@ -11,7 +11,20 @@
 
     <div class = "column" >
       <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
-      <%= render "public/favorites/btn", post: @post %>
+      <div class = "row" >
+        <div>
+          <%= render "public/favorites/btn", post: @post %>
+        </div>
+        <% if @post.customer == current_customer %>
+          <div>
+            <%= link_to "編集へ", edit_post_path(@post) %>
+          </div>
+          <div>
+            <%= link_to "削除", post_path(@post), method: :delete %>
+          </div>
+        <% else %>
+        <% end %>
+      </div>
     </div>
 
     <div class = "col-2" ></div>

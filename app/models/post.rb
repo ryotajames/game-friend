@@ -10,6 +10,8 @@ class Post < ApplicationRecord
     favorites.exists?(customer_id: customer.id)
   end
 
+  enum status: {public: 0, private: 1 }, _prefix: true
+
   def self.looks(search, word)
     if search == "perfect_match"
       @post = Post.where("post_introduction LIKE ?", "#{word}")

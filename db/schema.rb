@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_25_112720) do
+ActiveRecord::Schema.define(version: 2024_07_31_113148) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -94,14 +94,6 @@ ActiveRecord::Schema.define(version: 2024_07_25_112720) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "grouop_messages", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "room_id"
-    t.string "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "group_customers", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "group_id"
@@ -109,6 +101,16 @@ ActiveRecord::Schema.define(version: 2024_07_25_112720) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_group_customers_on_customer_id"
     t.index ["group_id"], name: "index_group_customers_on_group_id"
+  end
+
+  create_table "group_messages", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "customer_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_group_messages_on_customer_id"
+    t.index ["group_id"], name: "index_group_messages_on_group_id"
   end
 
   create_table "groupmasseges", force: :cascade do |t|
@@ -127,10 +129,9 @@ ActiveRecord::Schema.define(version: 2024_07_25_112720) do
   end
 
   create_table "messages", force: :cascade do |t|
+    t.integer "room_id", null: false
     t.integer "customer_id", null: false
     t.text "body", null: false
-    t.integer "room_id", null: false
-    t.string "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_messages_on_customer_id"
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(version: 2024_07_25_112720) do
     t.string "post_introduction", null: false
     t.integer "game_id"
     t.integer "customer_id"
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -164,6 +166,8 @@ ActiveRecord::Schema.define(version: 2024_07_25_112720) do
   add_foreign_key "entries", "rooms"
   add_foreign_key "group_customers", "customers"
   add_foreign_key "group_customers", "groups"
+  add_foreign_key "group_messages", "customers"
+  add_foreign_key "group_messages", "groups"
   add_foreign_key "messages", "customers"
   add_foreign_key "messages", "rooms"
 end

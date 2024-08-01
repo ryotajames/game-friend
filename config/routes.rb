@@ -30,21 +30,22 @@ Rails.application.routes.draw do
       collection do
         get 'check'
       end
-      resources :groups, only: [:new, :show, :create, :edit, :update] do
+      resources :groups, only: [:new, :show, :create, :edit, :update, :destroy] do
         resources :group_customers, only: [:create, :destroy]
-        resources :group_messages, only: [:create, :new]
       end
     end
+    
+      resources :groups, only: [:new, :show, :create, :edit, :update, :destroy] do
+        get "room" => "groups#room", as: "room"
+        resources :group_messages, only: [:create]
+      end
+  
       resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
         resources :favorites, only: [:create, :destroy]
         resources :comments, only: [:create]
       end
     resources :groups, only: [:index]
 
-  end
-
-  resources :rooms, only: [:create, :index, :show] do
-    resources :messages, only: [:create]
   end
 
   namespace :admins do

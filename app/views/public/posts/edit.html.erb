@@ -1,0 +1,15 @@
+<h1>投稿の編集</h1>
+<span>ログイン中のユーザー:<%= current_customer.name %></span>
+<%= form_for(@post, url: post_path(@post)) do |f| %>
+  <div>
+    <%= f.label :画像 %><br>
+    <%= f.file_field :image, accept: "image/*,movie/*", class: "form-control", autofocus: true, :placeholder => "#{@post.image}" %>
+  </div>
+  <div>
+    <%= f.label :説明文 %><br>
+    <%= f.text_area :post_introduction, :placeholder => "#{@post.post_introduction}" %>
+  </div>
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
