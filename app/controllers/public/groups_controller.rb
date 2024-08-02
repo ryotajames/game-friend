@@ -53,9 +53,9 @@ class Public::GroupsController < ApplicationController
   def room
     @group = Group.find(params[:group_id])
     @customer = current_customer
-    @messages = @group.group_messages
+    @group_messages = @group.group_messages
     @group_message = GroupMessage.new
-    
+
   end
 
     private

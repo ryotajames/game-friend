@@ -1,0 +1,28 @@
+// Place all the styles related to the homes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.controller {
+  height: 50vh;
+  background-image: image-url('about.png');
+  background-size: 700px 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 50px;
+  padding: 25px;
+}
+
+.about-text-body {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 500px;
+  color: white;
+}
+
+.about-text-title {
+  color: blue;
+  text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF,
+}
+
+.italic {
+  font-style: italic;
+}

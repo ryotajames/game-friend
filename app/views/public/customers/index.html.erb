@@ -7,7 +7,7 @@
       <div class = "col-2" >
         <div class = "column ml-2" >
           <div class = "center-block" >
-            <%= image_tag customer.get_profile_image(100,100) %>
+            <%= image_tag customer.get_profile_image(100,100), class: "rounded-circle" %>
           </div>
           <div class = "center-block" >
             <%= link_to customer_path(customer.id) do %>

@@ -1,5 +1,8 @@
 class Public::GroupMessagesController < ApplicationController
 
+  def room
+  end
+
   def new
     @room = Room.new
     @group = Group.find(params[:group_id])
@@ -10,21 +13,19 @@ class Public::GroupMessagesController < ApplicationController
   end
 
   def create
-    @group = Group.find(params[:group_id])
-    @customer = current_customer
-    @messages = @group.group_messages
-    @group_message = GroupMessage.new
-    if @group_message.save
-      redirect_to group_room_path(group_id: @group)
+    @group_message = GroupMessage.new(message_params)
+    @group_message.customer_id = current_customer.id
+    @group_message.group_id = params[:group_id].to_i
+    if @group_message.save!
+      redirect_to group_room_path(params[:group_id].to_i)
     else
-      redirect_to group_path(@group)
     end
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:body, :room_id, :customer_id, :group_id)
+    params.require(:group_message).permit(:body)
   end
 end
 

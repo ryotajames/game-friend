@@ -9,7 +9,7 @@
         <div class = "ml-5" >
           <%= "＠" + a.customer.name %>
         </div>
-        <%= image_tag a.image, size: "150x150", class: "mt-2 ml-5 mr-5 mb-3" %>
+        <%= image_tag a.image, size: "150x150", class: "mt-2 ml-5 mr-5 mb-3 rounded-circle" %>
         <div class = "ml-5 mb-4 d-inline-block text-truncate", style = "width: 100px;" >
           <%= link_to a.post_introduction, post_path(a) %>
         </div>
