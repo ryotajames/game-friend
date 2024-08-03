@@ -13,3 +13,9 @@
  *= require_tree .
  */
 
+@font-face {
+  font-family: 'game';
+      src: url(asset-path('fonts/game.otf')) format('otf');
+  font-weight: normal;
+  font-style: normal;
+}

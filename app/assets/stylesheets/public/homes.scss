@@ -5,7 +5,7 @@
 .controller {
   height: 50vh;
   background-image: image-url('about.png');
-  background-size: 700px 500px;
+  background-size: 800px 600px;
   background-position: center;
   background-repeat: no-repeat;
   margin-top: 50px;
@@ -19,8 +19,9 @@
 }
 
 .about-text-title {
-  color: blue;
-  text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF,
+  color: white;
+  font-family: 'game',;
+  font-style: italic;
 }
 
 .italic {
