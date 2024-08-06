@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   namespace :public do
     get 'search', to: 'searches#search'
+    resources :rooms, only: [:create, :index, :show] do
+      resources :messages, only: [:create]
+    end
   end
 
   namespace :admin do
@@ -34,12 +37,14 @@ Rails.application.routes.draw do
         resources :group_customers, only: [:create, :destroy]
       end
     end
-    
+
       resources :groups, only: [:new, :show, :create, :edit, :update, :destroy] do
+        get :join
+        post :invitation
         get "room" => "groups#room", as: "room"
         resources :group_messages, only: [:create]
       end
-  
+
       resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
         resources :favorites, only: [:create, :destroy]
         resources :comments, only: [:create]

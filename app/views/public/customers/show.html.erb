@@ -59,7 +59,7 @@
         <% unless @customer.id == current_customer.id %>
           <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
           <% if @isRoom == true %>
-            <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+            <p class="user-show-room"><a href="/public/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
           <% else %>
             <%= form_for @room do |f| %>
               <%= fields_for @entry do |e| %>

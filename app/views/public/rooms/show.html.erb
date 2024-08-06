@@ -4,6 +4,8 @@
   <% end %>
 <% end %>
 
+<%= flash[:alert] %>
+
 <%= link_to "一覧に戻る", public_posts_path %>
 
 <div class="container">
@@ -38,14 +40,11 @@
 <%#= debug params %>
 
 
-<%= form_with(model: [@room, @message], local: true) do |f| %>
+<%= form_with(model: @message, url: public_room_messages_path(@room), local: true, method: :post) do |f| %>
   <div class="text-center">
     <%= f.text_field :body, placeholder: "メッセージを入力してください", size: 50, class: "form-text-field" %>
-    <%= f.hidden_field :room_id, value: @room.id %>
-    <% if @group.present? %>
-      <!-- グループ関連の隠しフィールドは必要な場合のみ使用 -->
-      <%#= f.hidden_field :group_id, value: @group.id %>
-    <% end %>
+    <%= hidden_field_tag 'message[room_id]', @room.id %>
+    <%= hidden_field_tag 'message[customer_id]', current_customer.id %>
     <%= f.submit "送信", class: 'form-submit' %>
   </div>
 <% end %>

@@ -12,7 +12,7 @@
     <div class = "column" >
       <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
       <div class = "row" >
-        <div>
+        <div class = "ml-3" >
           <%= render "public/favorites/btn", post: @post %>
         </div>
         <% if @post.customer == current_customer %>

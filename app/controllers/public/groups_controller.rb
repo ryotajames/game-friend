@@ -55,7 +55,19 @@ class Public::GroupsController < ApplicationController
     @customer = current_customer
     @group_messages = @group.group_messages
     @group_message = GroupMessage.new
+  end
 
+  def join
+    @group = Group.find(params[:id])
+        # @team.users に、current_user のレコードが含まれていなければ以下の処理を行う。
+      unless @group.customers.include?(current_customer)
+          # @team.users に、current_user のレコードを追加する。
+        @team.customers << current_customer
+            # 招待通知を検索して削除。
+        notification = Notification.find_by(visited_id: current_customer.id, group_id: @group.id, action: "invitation")
+        notification.destroy
+      end
+    redirect_to group_path(@group), notice: "グループに参加しました。"
   end
 
     private
