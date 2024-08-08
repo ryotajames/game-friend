@@ -5,6 +5,7 @@ class Public::RelationshipsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     current_customer.follow(@customer)
     redirect_to request.referer
+    @customer.create_nofitication_follow!(current_customer)
   end
 
   def destroy

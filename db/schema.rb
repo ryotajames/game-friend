@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_31_113148) do
+ActiveRecord::Schema.define(version: 2024_08_07_092659) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -138,6 +138,18 @@ ActiveRecord::Schema.define(version: 2024_07_31_113148) do
     t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "subject_type"
+    t.integer "subject_id"
+    t.integer "customer_id"
+    t.integer "action_type", null: false
+    t.boolean "checked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_notifications_on_customer_id"
+    t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "post_introduction", null: false
     t.integer "game_id"
@@ -152,6 +164,7 @@ ActiveRecord::Schema.define(version: 2024_07_31_113148) do
     t.integer "follower_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "\"customer_id\", \"follow_id\"", name: "index_relationships_on_customer_id_and_follow_id", unique: true
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -170,4 +183,5 @@ ActiveRecord::Schema.define(version: 2024_07_31_113148) do
   add_foreign_key "group_messages", "groups"
   add_foreign_key "messages", "customers"
   add_foreign_key "messages", "rooms"
+  add_foreign_key "notifications", "customers"
 end

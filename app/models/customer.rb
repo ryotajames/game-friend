@@ -25,6 +25,8 @@ class Customer < ApplicationRecord
 
   has_many :games, dependent: :destroy
 
+  has_many :notifications, dependent: :destroy
+
   has_one_attached :profile_image
   # has_many :yyy, through: :xxx, source: :zzz
 
@@ -65,6 +67,17 @@ class Customer < ApplicationRecord
 
   def active_for_authentication?
     super && (is_deleted == false)
+  end
+
+  def create_nofitication_follow!(current_customer)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_customer.id, id, 'follow'])
+    if temp.blank?
+      notification = current_customer.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
   end
 
 end

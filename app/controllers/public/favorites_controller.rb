@@ -10,7 +10,9 @@ class Public::FavoritesController < ApplicationController
       logger.error @favorite.errors.full_messages.join(", ")
       redirect_to post_path(params[:post_id]), alert: 'いいねに失敗しました'
     end
-
+  
+  post.create_nofitication_like!(current_customer)
+  
   end
 
   def destroy

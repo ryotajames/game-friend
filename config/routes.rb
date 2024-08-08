@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get '/customers/check' => 'customers#check'
     delete '/customers/withdraw' => 'customers#withdraw'
 
+    resources :notifications, only: :index
+
     resources :customers, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
@@ -34,6 +36,8 @@ Rails.application.routes.draw do
         get 'check'
       end
       resources :groups, only: [:new, :show, :create, :edit, :update, :destroy] do
+        get :join
+        post :invitation
         resources :group_customers, only: [:create, :destroy]
       end
     end

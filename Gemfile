@@ -62,6 +62,7 @@ end
 
 gem 'devise'
 gem 'active_storage_validations'
+gem 'kaminari'
 
 gem "net-smtp"
 gem "net-pop"
