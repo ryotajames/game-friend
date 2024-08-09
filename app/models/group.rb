@@ -26,16 +26,18 @@ class Group < ApplicationRecord
   end
 
   def self.looks(search, word)
-    if search == "perfect_match"
-      @group = Group.where("group_name LIKE?", "#{word}")
-    elsif search == "forward_match"
-      @group = Group.where("group_name LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @group = Group.where("group_name LIKE?","%#{word}")
-    elsif search == "partial_match"
-      @group = Group.where("group_name LIKE?","%#{word}%")
+    sanitized_word = ActiveRecord::Base.sanitize_sql_like(word)
+    case search
+    when "perfect_match"
+      where("group_name LIKE ?", "#{sanitized_word}")
+    when "forward_match"
+      where("group_name LIKE ?", "#{sanitized_word}%")
+    when "backward_match"
+      where("group_name LIKE ?", "%#{sanitized_word}")
+    when "partial_match"
+      where("group_name LIKE ?", "%#{sanitized_word}%")
     else
-      @group = Group.all
+      all
     end
   end
 

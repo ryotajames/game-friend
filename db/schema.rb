@@ -143,6 +143,8 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
     t.integer "subject_id"
     t.integer "customer_id"
     t.integer "action_type", null: false
+    t.integer "follower_id"
+    t.integer "followed_id"
     t.boolean "checked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -164,7 +166,7 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
     t.integer "follower_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"customer_id\", \"follow_id\"", name: "index_relationships_on_customer_id_and_follow_id", unique: true
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   end
 
   create_table "rooms", force: :cascade do |t|

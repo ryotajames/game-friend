@@ -32,16 +32,18 @@ class Customer < ApplicationRecord
 
   # 検索方法分岐
   def self.looks(search, word)
-    if search == "perfect_match"
-      @customer = Customer.where("name LIKE?", "#{word}")
-    elsif search == "forward_match"
-      @customer = Customer.where("name LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @customer = Customer.where("name LIKE?","%#{word}")
-    elsif search == "partial_match"
-      @customer = Customer.where("name LIKE?","%#{word}%")
+    sanitized_word = ActiveRecord::Base.sanitize_sql_like(word)
+    case search
+    when "perfect_match"
+      where("name LIKE ?", "#{sanitized_word}")
+    when "forward_match"
+      where("name LIKE ?", "#{sanitized_word}%")
+    when "backward_match"
+      where("name LIKE ?", "%#{sanitized_word}")
+    when "partial_match"
+      where("name LIKE ?", "%#{sanitized_word}%")
     else
-      @customer = Customer.all
+      all
     end
   end
 
@@ -70,14 +72,16 @@ class Customer < ApplicationRecord
   end
 
   def create_nofitication_follow!(current_customer)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_customer.id, id, 'follow'])
+  temp = Notification.where(["follower_id = ? AND followed_id = ? AND action_type = ?", current_customer.id, id, 'follow'])
     if temp.blank?
-      notification = current_customer.active_notifications.new(
-        visited_id: id,
-        action: 'follow'
+      notification = Notification.new(
+        follower_id: current_customer.id,
+        followed_id: id,
+        action_type: 'followed_me'
       )
       notification.save if notification.valid?
     end
   end
+
 
 end

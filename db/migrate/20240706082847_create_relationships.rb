@@ -5,7 +5,7 @@ class CreateRelationships < ActiveRecord::Migration[6.1]
       t.integer :followed_id
       t.integer :follower_id
 
-      t.index [:customer_id, :follow_id], unique: true
+      t.index [:follower_id, :followed_id], unique: true
 
       t.timestamps
     end

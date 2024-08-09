@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get '/customers/check' => 'customers#check'
     delete '/customers/withdraw' => 'customers#withdraw'
 
-    resources :notifications, only: :index
+    resources :notifications, only: [:index, :destroy]
 
     resources :customers, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]

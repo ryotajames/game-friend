@@ -8,7 +8,7 @@ class Public::NotificationsController < ApplicationController
   end
 
   def destroy
-    @notifications = current_end_customer.notifications.destroy_all
+    @notifications = current_customer.notifications.destroy_all
     redirect_to notifications_path
   end
 
