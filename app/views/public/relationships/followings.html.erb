@@ -4,7 +4,7 @@
   <tr>
     <th>ユーザー名</th>
     <% @customers.each do |a| %>
-        <th><%= a.name %></th>
+        <th><%= link_to a.name, customer_path(a) %></th>
     <% end %>
     </tr>
 </table>

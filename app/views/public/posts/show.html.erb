@@ -1,20 +1,18 @@
-<!--<div class = "m-auto", style="height: calc(100vh - 100px - 100px);" >-->
+<div class = "row" >
+  <h2 class = "text-center mt-3 mr-5" >投稿詳細</h2>
+  <h5><%= link_to "このユーザーの詳細ページへ", customer_path(@post.customer.id) %></h5>
+</div>
 
-  <div class = "row" >
-    <h2 class = "text-center mt-3 mr-5" >投稿詳細</h2>
-    <h5><%= link_to "このユーザーの詳細ページへ", customer_path(@post.customer.id) %></h5>
-  </div>
+<div class = "row col-12" >
 
-  <div class = "row col-12" >
+<div class = "col-1" ></div>
 
-    <div class = "col-1" ></div>
-
-    <div class = "column" >
-      <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
-      <div class = "row" >
-        <div class = "ml-3" >
-          <%= render "public/favorites/btn", post: @post %>
-        </div>
+  <div class = "column" >
+    <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
+    <div class = "row" >
+      <div class = "ml-3" >
+        <%= render "public/favorites/btn", post: @post %>
+      </div>
         <% if @post.customer == current_customer %>
           <div>
             <%= link_to "編集へ", edit_post_path(@post) %>
@@ -24,47 +22,47 @@
           </div>
         <% else %>
         <% end %>
-      </div>
+    </div>
+  </div>
+
+  <div class = "col-2" ></div>
+
+  <div class = "column" >
+    <h5 class = "d-flex align-items-center" ><%= @post.post_introduction %></h5>
+
+    <div>
+      <%= form_with model: [@post, @comment] do |f| %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
     </div>
 
-    <div class = "col-2" ></div>
+    <div>
+      <p class = "mt-4" >コメント件数：<%= @post.comments.count %></p>
 
-    <div class = "column" >
-      <h5 class = "d-flex align-items-center" ><%= @post.post_introduction %></h5>
 
-      <div>
-        <%= form_with model: [@post, @comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-          <%= f.submit "送信する" %>
-        <% end %>
-      </div>
-
-      <div>
-        <p class = "mt-4" >コメント件数：<%= @post.comments.count %></p>
-
-        <% @post.comments.each do |post_comment| %>
           <%#= image_tag post_comment.customer.get_profile_image(100,100) %>
-          <table>
-            <tr>
-            <td style = "width:100px;" >
-              <%= link_to post_comment.customer.name, customer_path(post_comment.customer) %>
-            </td>
-            <td>
-              <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-            </td>
-            </tr>
+        <table>
+        <% @post.comments.each do |post_comment| %>
+          <tr>
+          <td style = "width:100px;" >
+            <%= link_to post_comment.customer.name, customer_path(post_comment.customer) %>
+          </td>
+          <td>
+            <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+          </td>
+          </tr>
 
-            <tr>
-              <td></td>
+          <tr>
+            <td></td>
               <td><%= post_comment.comment %></td>
-            </tr>
-          </table>
-      </div>
+          </tr>
         <% end %>
+        </table>
       </div>
-
-    </div>
 
   </div>
+
 </div>
+
 

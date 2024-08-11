@@ -1,10 +1,10 @@
 <% if post.favorited_by?(current_customer) %>
-  <%= button_to post_favorite_path(post_id: post.id), method: :delete, data: { turbo_method: :delete } do %>
+  <%= link_to post_favorite_path(post_id: post.id), method: :delete, data: { turbo_method: :delete } do %>
     <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
     <%= post.favorites.count %> いいね
   <% end %>
 <% else %>
-  <%= button_to post_favorites_path(post_id: post.id), method: :post, data: { turbo_method: :post } do %>
+  <%= link_to post_favorites_path(post_id: post.id), method: :post, data: { turbo_method: :post } do %>
     <i class="fa-regular fa-heart"></i>
     <%= post.favorites.count %> いいね
   <% end %>

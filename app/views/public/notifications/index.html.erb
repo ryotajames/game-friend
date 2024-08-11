@@ -1,7 +1,9 @@
 <% if @notifications.present? %>
   <%= link_to "全削除",notification_path(@notifications), method: :delete,class:"btn btn-light" %>
   <% @notifications.each do |notification| %>
+    <div class = "mt-3 mb-3" >
       <%= render "#{notification.action_type}", notification: notification %>
+    </div>
   <% end %>
 <% else %>
   通知はありません

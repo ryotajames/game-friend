@@ -1,9 +1,6 @@
 <%= link_to transition_path(notification) do %>
   <div>
-    <% if notification.subject.follower %>
-    <% else %>
-      <%= link_to notification.subject.follower.customer.name, customer_path(notification.subject.follower) %>
-    <% end %>
+    <%= link_to notification.subject.follower.name, customer_path(notification.subject.follower) %>
     があなたをフォローしました
     <%= " (#{time_ago_in_words(notification.created_at)} ago)" %>
   </div>

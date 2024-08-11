@@ -31,14 +31,14 @@ class Post < ApplicationRecord
   end
 
   def create_notification_like!(current_customer)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and post_id = ? and action = ? ", current_customer.id, customer_id, id, 'like'])
+    temp = Notification.where(["customer_id = ? and post_id = ? and action_type = ? ", current_customer.id, id, 'like'])
     if temp.blank?
-      notification = current_customer.active_notifications.new(
+      notification = Notification.new(
         post_id: id,
-        visited_id: customer_id,
-        action: 'like'
+        customer_id: customer_id,
+        action_type: 'liked_to_own_post'
         )
-      if notification.visitor_id == nogitication.visited_id
+      if notification.customer_id == notification.customer_id
         notification.checked = true
       end
       notification.save if notification.valid?
@@ -46,18 +46,20 @@ class Post < ApplicationRecord
   end
 
   def create_notification_comment!(current_customer, comment_id)
-    temp_ids = Comment.select(:customer_id).where(post_id: id).where.not(customer_id: current_customer.id).distinct
+  temp_ids = Comment.select(:customer_id).where(post_id: id).where.not(customer: current_customer).distinct
     temp_ids.each do |temp_id|
-      save_notification_comment!(current_customer, comment_id, temp_id['customer_id'])
+      save_notification_comment!(current_customer, comment_id, temp_id.customer_id)
     end
-    save_notification_comment!(current_customer, comment_id, customer_id) if temp_ids.blank?
+  save_notification_comment!(current_customer, comment_id, customer_id) if temp_ids.blank?
   end
 
+
   def save_notification_comment!(current_customer, comment_id, visited_id)
+    return unless current_customer
     notification = current_customer.active_notifications.new(
       post_id: id,
       comment_id: comment_id,
-      visited_id: visited_id,
+      customer_id: customer_id,
       action: 'comment'
     )
     if notification.visitor_id == notification.visited_id

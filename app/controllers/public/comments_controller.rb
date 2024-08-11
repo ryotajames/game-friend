@@ -7,7 +7,7 @@ class Public::CommentsController < ApplicationController
     if @comment.save
       Rails.logger.debug("Comment saved successfully: #{@comment.inspect}")
       redirect_to post_path(@post), notice: 'コメントが作成されました'
-      @post.create_nofitication_comment!(current_customer, comment.id)
+      @post.create_notification_comment!(@customer, @comment.id)
     else
       Rails.logger.debug("Comment failed to save: #{@comment.errors.full_messages}")
       flash.now[:alert] = 'コメントの作成に失敗しました'

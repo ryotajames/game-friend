@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
     t.integer "action_type", null: false
     t.integer "follower_id"
     t.integer "followed_id"
+    t.integer "post_id"
     t.boolean "checked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
