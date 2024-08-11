@@ -41,4 +41,19 @@ class Group < ApplicationRecord
     end
   end
 
+  def team_invitation_notification(current_customer, visited_id, team_id)
+    temp = Notification.where(visitor_id: current_customer.id, visited_id: visited_id, team_id: team_id)
+　　　　  # 上記で検索した通知がない場合のみ、通知レコードを作成。
+    if temp.blank?
+      notification = current_customer.active_notifications.new(
+        visited_id: visited_id,
+        group_id: group_id,
+        action: "invitation",
+      )
+      # エラーがなければ、通知レコードを保存。
+      notification.save if notification.valid?
+    end
+  end
+
+
 end

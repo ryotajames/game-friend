@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
     t.string "subject_type"
     t.integer "subject_id"
     t.integer "customer_id"
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
     t.integer "action_type", null: false
     t.integer "follower_id"
     t.integer "followed_id"

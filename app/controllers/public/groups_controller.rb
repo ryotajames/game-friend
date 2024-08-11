@@ -20,6 +20,10 @@ class Public::GroupsController < ApplicationController
     @room = Room.new
     @entry = Entry.new
 
+    group_member_ids = @group.customers.pluck(:id) # グループに所属しているユーザーのIDを取得
+    @other_customers = Customer.where.not(id: group_member_ids) # それらを除外して他のユーザーを取得
+
+
   end
 
   def new
@@ -31,6 +35,7 @@ class Public::GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.owner_id = current_customer.id
     if @group.save
+      @group.customers << current_customer
       redirect_to groups_path
     else
       render "new"
@@ -69,6 +74,35 @@ class Public::GroupsController < ApplicationController
       end
     redirect_to group_path(@group), notice: "グループに参加しました。"
   end
+
+  def invitation
+    @group = Group.find(params[:id])
+　　　　　　　　　　　　　　　　# この後 view に設置するフォームの値を参照する。
+    @customer = Customer.find_by(id: params[:user_id])
+    notification = Notification.where(visited_id: @customer.id, team_id: @group.id, action: "invitation")
+    unless notification.exists?
+      # それぞれの仮引数を置き換えて、team.rb に記述したメソッドを呼び出す。
+      @group.team_invitation_notification(current_user, @customer.id, @group.id)
+      # 遷移する前のURLを取得し、リダイレクトさせる。
+      redirect_to request.referer, notice: "招待を送りました。"
+    else
+      redirect_to request.referer, alert: "すでに招待しています。"
+    end
+  end
+
+  def join
+    @group = Group.find(params[:id])
+    # @team.users に、current_user　のレコードが含まれていなければ以下の処理を行う。
+    unless @group.customers.include?(current_customer)
+# @team.users に、current_user のレコードを追加する。
+      @group.customers << current_customer
+      # 招待通知を検索して削除。
+      notification = Notification.find_by(visited_id: current_customer.id, team_id: @group.id, action: "invitation")
+      notification.destroy
+    end
+    redirect_to team_path(@group), notice: "チームに参加しました。"
+  end
+
 
     private
 

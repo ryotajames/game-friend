@@ -35,12 +35,23 @@
             </div>
           </td>
           <td>
+
+            <% if @other_customers.exists? %>
+              <%= form_with model: @customer, url: group_invitation_path(@group), method: :post, local: true do |f| %>
+                  <% if @group.customers.include?(current_customer) %>
+                    <%= f.collection_select :user_id, @other_customers, :id, :name %>
+                    <%= f.submit "招待する" %>
+                  <% else %>
+                  <% end %>
+              <% end %>
+            <% end %>
+
             <% if @group.owner_id == current_customer.id %>
               <%= link_to '編集', edit_customer_group_path(@group) %>
             <% elsif @group.group_customers.exists?(customer_id: current_customer.id) %>
               <%= link_to "このグループを抜ける", customer_group_group_customer_path(current_customer, @group), method: :delete %>
             <% else %>
-              <%= link_to "このグループに参加する", customer_group_group_customers_path(current_customer, @group), method: :post %>
+              <%#= link_to "このグループに参加する", customer_group_group_customers_path(current_customer, @group), method: :post %>
             <% end %>
           </td>
         </tr>
@@ -64,6 +75,6 @@
         <%# end %>
       <%#end %>
     <%# end %>
-    
+
   </div>
 </div>
