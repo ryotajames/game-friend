@@ -113,11 +113,6 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
     t.index ["group_id"], name: "index_group_messages_on_group_id"
   end
 
-  create_table "groupmasseges", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "groups", force: :cascade do |t|
     t.string "group_name", null: false
     t.string "beginning", null: false
@@ -139,20 +134,18 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.string "subject_type"
-    t.integer "subject_id"
     t.integer "customer_id"
-    t.integer "visitor_id", null: false
-    t.integer "visited_id", null: false
+    t.integer "favorite_id"
+    t.integer "comment_id"
+    t.integer "group_id"
+    t.integer "visitor_id"
+    t.integer "visited_id"
     t.integer "action_type", null: false
-    t.integer "follower_id"
-    t.integer "followed_id"
     t.integer "post_id"
     t.boolean "checked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_notifications_on_customer_id"
-    t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -167,9 +160,10 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
   create_table "relationships", force: :cascade do |t|
     t.integer "followed_id"
     t.integer "follower_id"
+    t.integer "visitor_id"
+    t.integer "visited_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   end
 
   create_table "rooms", force: :cascade do |t|

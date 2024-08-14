@@ -4,6 +4,7 @@ class Group < ApplicationRecord
   belongs_to :owner, class_name: 'Customer'
   has_many :customers, through: :group_customers
   has_many :group_messages, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :group_name, presence: true
   validates :beginning, presence: true
@@ -41,17 +42,17 @@ class Group < ApplicationRecord
     end
   end
 
-  def team_invitation_notification(current_customer, visited_id, team_id)
-    temp = Notification.where(visitor_id: current_customer.id, visited_id: visited_id, team_id: team_id)
-　　　　  # 上記で検索した通知がない場合のみ、通知レコードを作成。
+  def team_invitation_notification(customer, visited_id, group_id)
+    temp = Notification.where(visitor_id: customer.id, visited_id: visited_id, group_id: group_id)
+# 上記で検索した通知がない場合のみ、通知レコードを作成。
     if temp.blank?
-      notification = current_customer.active_notifications.new(
+      notification = customer.active_notifications.new(
         visited_id: visited_id,
         group_id: group_id,
-        action: "invitation",
+        action_type: 3,
       )
       # エラーがなければ、通知レコードを保存。
-      notification.save if notification.valid?
+      notification.save!
     end
   end
 

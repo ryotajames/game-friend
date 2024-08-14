@@ -3,10 +3,12 @@ class Public::RelationshipsController < ApplicationController
 
   def create
     @customer = Customer.find(params[:customer_id])
-    current_customer.follow(@customer)
+      if current_customer.follow(@customer, current_customer)
+        @customer.create_notification_follow!(current_customer)
+      end
     redirect_to request.referer
-    @customer.create_nofitication_follow!(current_customer)
   end
+
 
   def destroy
     @customer = Customer.find(params[:customer_id])

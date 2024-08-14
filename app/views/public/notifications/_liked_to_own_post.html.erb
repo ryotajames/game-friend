@@ -1,9 +1,16 @@
 <%= link_to transition_path(notification) do %>
   <div>
-    <%= link_to notification.subject.customer.name, customer_path(notification.subject.customer) %>
-    があなたの
-    <%= link_to '投稿', post_path(notification.subject.post) %>
-    にいいねしました
+    <% if notification.subject.class == Post %>
+      <!--<%#= link_to favorite.visitor.name, customer_path(notification.visited) %>-->
+      <!--があなたの-->
+      <!--<%#= link_to '投稿', post_path(notification.subject) %>-->
+      <!--にいいねしました-->
+    <% else %>
+      <%= link_to notification.visitor.name, customer_path(notification.subject) %>
+      があなたの
+      <%= link_to '投稿', post_path(notification.subject) %>
+      にいいねしました
+    <% end %>
     <%= " (#{time_ago_in_words(notification.created_at)}前)" %>
   </div>
 <% end %>

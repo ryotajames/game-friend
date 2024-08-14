@@ -69,21 +69,18 @@ class Public::GroupsController < ApplicationController
           # @team.users に、current_user のレコードを追加する。
         @team.customers << current_customer
             # 招待通知を検索して削除。
-        notification = Notification.find_by(visited_id: current_customer.id, group_id: @group.id, action: "invitation")
+        notification = Notification.find_by(visited_id: current_customer.id, group_id: @group.id, action_type: 4)
         notification.destroy
       end
     redirect_to group_path(@group), notice: "グループに参加しました。"
   end
 
   def invitation
-    @group = Group.find(params[:id])
-　　　　　　　　　　　　　　　　# この後 view に設置するフォームの値を参照する。
-    @customer = Customer.find_by(id: params[:user_id])
-    notification = Notification.where(visited_id: @customer.id, team_id: @group.id, action: "invitation")
+    @group = Group.find(params[:group_id])
+    @customer = Customer.find(params[:customer][:customer_id])
+    notification = Notification.where(visited_id: @customer.id, group_id: @group.id, action_type: 4)
     unless notification.exists?
-      # それぞれの仮引数を置き換えて、team.rb に記述したメソッドを呼び出す。
-      @group.team_invitation_notification(current_user, @customer.id, @group.id)
-      # 遷移する前のURLを取得し、リダイレクトさせる。
+      @group.team_invitation_notification(current_customer, @customer.id, @group.id)
       redirect_to request.referer, notice: "招待を送りました。"
     else
       redirect_to request.referer, alert: "すでに招待しています。"
@@ -91,16 +88,16 @@ class Public::GroupsController < ApplicationController
   end
 
   def join
-    @group = Group.find(params[:id])
+    @group = Group.find(params[:group_id])
     # @team.users に、current_user　のレコードが含まれていなければ以下の処理を行う。
     unless @group.customers.include?(current_customer)
 # @team.users に、current_user のレコードを追加する。
       @group.customers << current_customer
       # 招待通知を検索して削除。
-      notification = Notification.find_by(visited_id: current_customer.id, team_id: @group.id, action: "invitation")
+      notification = Notification.find_by(visited_id: current_customer.id, group_id: @group.id, action: "invitation")
       notification.destroy
     end
-    redirect_to team_path(@group), notice: "チームに参加しました。"
+    redirect_to group_path(@group), notice: "チームに参加しました。"
   end
 
 

@@ -1,0 +1,7 @@
+<% case notification.action_type %>
+  <% when "invitation" %>
+    <%= link_to "notification.visitor.name", customer_path(notification.visitor.id) %>
+    さんからチームへの招待が届きました。
+    <!--このリンクをクリックすると、チーム加入処理を行う join アクションが働く。-->
+    <%= link_to "参加する", group_join_path(notification.group_id) %>
+<% end %>

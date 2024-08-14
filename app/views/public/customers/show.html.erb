@@ -7,13 +7,14 @@
         <%= image_tag @customer.get_profile_image(100,100), class: "ml-xl-5 mr-5" %>
         <table class = "ml-5" >
           <tr>
-            <th>フォロワー</th>
-            <td><%= link_to @customer.followers.count, customer_followers_path(@customer) %></td>
-          </tr>
-          <tr>
             <th>フォロー中</th>
             <td><%= link_to @customer.followings.count, customer_followings_path(@customer) %></td>
           </tr>
+          <tr>
+            <th>フォロワー</th>
+            <td><%= link_to @customer.followers.count, customer_followers_path(@customer) %></td>
+          </tr>
+
         </table>
 
       </div>
@@ -61,7 +62,7 @@
           <% if @isRoom == true %>
             <p class="user-show-room"><a href="/public/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
           <% else %>
-            <%= form_for @room do |f| %>
+            <%= form_for @room, url: public_room_path do |f| %>
               <%= fields_for @entry do |e| %>
                 <%= e.hidden_field :customer_id, value: @customer.id %>
               <% end %>

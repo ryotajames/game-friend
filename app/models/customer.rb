@@ -6,8 +6,8 @@ class Customer < ApplicationRecord
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true, presence: true
 
-  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "visitor_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "visited_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
@@ -25,7 +25,10 @@ class Customer < ApplicationRecord
 
   has_many :games, dependent: :destroy
 
-  has_many :notifications, dependent: :destroy
+  # has_many :notifications, dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+  
 
   has_one_attached :profile_image
   # has_many :yyy, through: :xxx, source: :zzz
@@ -47,12 +50,17 @@ class Customer < ApplicationRecord
     end
   end
 
-  def follow(customer)
-    active_relationships.create(followed_id: customer.id)
+  def follow(customer, current_customer)
+    relationship = Relationship.new
+    relationship.visited_id = customer.id
+    relationship.followed_id = customer.id
+    relationship.follower_id = current_customer.id
+
+    relationship.save
   end
 
   def unfollow(customer)
-    active_relationships.find_by(followed_id: customer.id).destroy
+    active_relationships.find_by(visited_id: customer.id).destroy
   end
 
   def following?(customer)
@@ -71,17 +79,27 @@ class Customer < ApplicationRecord
     super && (is_deleted == false)
   end
 
-  def create_nofitication_follow!(current_customer)
-  temp = Notification.where(["follower_id = ? AND followed_id = ? AND action_type = ?", current_customer.id, id, 'follow'])
+  def create_notification_follow!(current_customer)
+  temp = Notification.where(["visitor_id = ? AND visited_id = ? AND action_type = ?", current_customer.id, id, 'follow'])
     if temp.blank?
       notification = Notification.new(
-        follower_id: current_customer.id,
-        followed_id: id,
-        action_type: 'followed_me'
+        visitor_id: current_customer.id,
+        visited_id: id,
+        action_type: 2
       )
       notification.save if notification.valid?
     end
   end
+
+  # def active_notifications(visitor_id, visited_id, group_id)
+  # notification = Notification.new(
+  #   visitor_id: visitor_id,
+  #   visited_id: visited_id,
+  #   group_id: group_id,
+  #   action_type: 'invitation'
+  # )
+  # notification.save if notification.valid?
+  # end
 
 
 end

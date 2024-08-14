@@ -2,9 +2,7 @@ class Favorite < ApplicationRecord
   belongs_to :customer
   belongs_to :post
 
-  has_one :notification, as: :subject, dependent: :destroy
-
-  after_create_commit :create_notifications
+  has_many :notifications, dependent: :destroy
 
   private
 

@@ -30,17 +30,18 @@ class Post < ApplicationRecord
     end
   end
 
-  def create_notification_like!(current_customer)
-    temp = Notification.where(["customer_id = ? and post_id = ? and action_type = ? ", current_customer.id, id, 'like'])
+  def create_notification_like!(target_customer)
+    temp = Notification.where(["visited_id = ? and post_id = ? and action_type = ? ", target_customer.id, id, 'like'])
     if temp.blank?
       notification = Notification.new(
         post_id: id,
-        customer_id: customer_id,
-        action_type: 'liked_to_own_post'
+        visited_id: customer_id,
+        visitor_id: target_customer.id,
+        action_type: 1
         )
-      if notification.customer_id == notification.customer_id
-        notification.checked = true
-      end
+      # if notification.customer_id == notification.customer_id
+      #   notification.checked = true
+      # end
       notification.save if notification.valid?
     end
   end
@@ -59,12 +60,12 @@ class Post < ApplicationRecord
     notification = current_customer.active_notifications.new(
       post_id: id,
       comment_id: comment_id,
-      customer_id: customer_id,
-      action: 'comment'
+      visited_id: customer_id,
+      action_type: 0
     )
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
+    # if notification.visitor_id == notification.visited_id
+    #   notification.checked = true
+    # end
     notification.save if notification.valid?
   end
 
