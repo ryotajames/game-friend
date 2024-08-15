@@ -94,7 +94,7 @@ class Public::GroupsController < ApplicationController
 # @team.users に、current_user のレコードを追加する。
       @group.customers << current_customer
       # 招待通知を検索して削除。
-      notification = Notification.find_by(visited_id: current_customer.id, group_id: @group.id, action: "invitation")
+      notification = Notification.find_by(visited_id: current_customer.id, group_id: @group.id, action_type: "invitation")
       notification.destroy
     end
     redirect_to group_path(@group), notice: "チームに参加しました。"
