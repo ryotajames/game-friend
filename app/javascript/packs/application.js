@@ -21,3 +21,7 @@ import "popper.js";
 import "bootstrap";
 
 // import "stylesheets/application.css";
+
+$(function(){
+  $('.contorller').slideDown();
+});

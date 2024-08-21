@@ -7,7 +7,6 @@
           <th>グループ名</th>
           <th>紹介文</th>
           <th>グループ人数</th>
-          <th>グループ参加者</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -24,15 +23,6 @@
           </td>
           <td>
             <%= @group.group_customers.count %>
-          </td>
-          <td>
-            <div class="column">
-              <% @group.group_customers.each do |group_customer| %>
-                <div>
-                  <%= link_to group_customer.customer.name, customer_path(group_customer.customer_id) %>
-                </div>
-              <% end %>
-            </div>
           </td>
           <td>
 
@@ -61,23 +51,29 @@
 
       <%= notice %><br />
 
-    <% if @group.group_customers.exists?(customer_id: current_customer.id) %>
-      <%= link_to "チャットへ", group_room_path(group_id: @group), class: "btn btn-primary btn-lg user-show-chat" %>
-    <% else %>
-    <% end %>
+    <div class = "row col-12" >
+      <% if @group.group_customers.exists?(customer_id: current_customer.id) %>
+      <div>
+        <%= link_to "チャットへ", group_room_path(group_id: @group), class: "btn btn-primary btn-lg user-show-chat ml-5" %>
+      </div>
+      <% else %>
+      <% end %>
 
-    <%# if @group.group_customers.exists?(customer_id: current_customer.id) %>
-      <%# if @isRoom %>
-        <!--<p class="user-show-room">-->
-        <!--  <a href="/rooms/<%#= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>-->
-        <!--</p>-->
-      <%# else %>
-        <%#= form_for @room do |f| %>
-          <%#= f.hidden_field :customer_id, value: current_customer.id %>
-          <%#= f.submit "チャットを始める", class: "btn btn-primary btn-lg user-show-chat" %>
-        <%# end %>
-      <%#end %>
-    <%# end %>
+      <div class = "col-2" ></div>
+
+      <div class="column">
+        <h3>
+          グループ参加者
+        </h3>
+        <% @group.group_customers.each do |group_customer| %>
+        <div>
+          <%= link_to group_customer.customer.name, customer_path(group_customer.customer_id) %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+
 
   </div>
 </div>
