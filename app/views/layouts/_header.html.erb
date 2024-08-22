@@ -15,7 +15,10 @@
 
         <%= image_tag 'logo.png', size: '206x125' %>
         <div class = "ml-5 mr-5" ></div>
-        <%= link_to 'トップ', root_path, class: "btn btn-light ml-4 mt-auto mb-auto" %>
+        <%= link_to root_path, class: "btn btn-light ml-4 mt-auto mb-auto" do %>
+            <i class="fa-solid fa-angle-up"></i>トップ
+        <% end %>
+        <%#= link_to 'トップ', root_path, class: "btn btn-light ml-4 mt-auto mb-auto" %>
         <div class = "col-1" ></div>
         <%= link_to about_path, class: "btn btn-light ml-4 mt-auto mb-auto" do %>
             <i class="fa-solid fa-house"></i>ホーム
