@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 2024_08_07_092659) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "customer_id"
+    t.integer "subject_id"
+    t.integer "subject_type"
     t.integer "favorite_id"
     t.integer "comment_id"
     t.integer "group_id"
