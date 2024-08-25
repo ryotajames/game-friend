@@ -1,6 +1,6 @@
 <div class = "row" >
-  <h2 class = "text-center mt-3 mr-5" >投稿詳細</h2>
-  <h5><%= link_to "このユーザーの詳細ページへ", customer_path(@post.customer.id) %></h5>
+  <h2 class = "text-center mt-3 mr-5 ml-5" >投稿詳細</h2>
+  <p><%= link_to "このユーザーの詳細ページへ", customer_path(@post.customer.id) %></p>
 </div>
 
 <div class = "row col-12" >
@@ -8,6 +8,12 @@
 <div class = "col-1" ></div>
 
   <div class = "column" >
+    <div class = "row" >
+      <div>投稿日時</div>
+      <div>
+        <%= @post.created_at. strftime('%Y/%m/%d %H:%M') %>
+      </div>
+    </div>
     <%= image_tag @post.image, size:"350x350", class: "mt-auto mb-auto" %>
     <div class = "row" >
       <div class = "ml-3" >

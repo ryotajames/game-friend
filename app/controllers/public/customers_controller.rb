@@ -37,15 +37,17 @@
     def edit
       @customer = current_customer
       @post = @customer.posts
+      is_matching_login_customer
     end
 
     def update
-    @customer = current_customer
-    if @customer.update(customer_params)
-      redirect_to customer_path(@customer), notice: "You have updated user successfully."
-    else
-      render "edit"
-    end
+      @customer = current_customer
+      if @customer.update(customer_params)
+        redirect_to customer_path(@customer), notice: "You have updated user successfully."
+      else
+        render "edit"
+      end
+      is_matching_login_customer
     end
 
     def check
@@ -58,6 +60,14 @@
       reset_session
       flash[:notice] = "退会処理を実行いたしました"
       redirect_to root_path
+    end
+
+    def is_matching_login_customer
+      @customer = current_customer
+      customer = Customer.find(params[:id])
+      unless customer.id == current_customer.id
+        redirect_to customer_path(@customer)
+      end
     end
 
     private

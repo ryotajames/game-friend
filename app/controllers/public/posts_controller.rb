@@ -30,6 +30,7 @@
 
     def edit
       @post = Post.find(params[:id])
+      is_matching_login_customer
     end
 
     def update
@@ -39,14 +40,24 @@
       else
         render :new
       end
+      is_matching_login_customer
     end
-    
+
     def destroy
       @post = Post.find(params[:id])
       @post.destroy
       redirect_to public_posts_path
     end
-    
+
+    def is_matching_login_customer
+      @customer = current_customer
+      @post = Post.find(params[:id])
+      customer = @post.customer
+      unless customer.id == current_customer.id
+        redirect_to post_path(@post)
+      end
+    end
+
     private
 
     def post_params
