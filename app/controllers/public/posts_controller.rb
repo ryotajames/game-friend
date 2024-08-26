@@ -2,8 +2,12 @@
   class Public::PostsController < ApplicationController
     before_action :authenticate_customer!, only: [:index]
 
+    def check
+      @post = Post.find(params[:post_id])
+    end
+
     def index
-      @posts = Post.all
+      @posts = Post.all.order(created_at: :desc)
       @customer = current_customer
     end
 

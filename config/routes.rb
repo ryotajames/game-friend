@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       end
 
       resources :posts, only: [:new, :show, :edit, :create, :destroy, :update] do
+        get :check
         resources :favorites, only: [:create, :destroy]
         resources :comments, only: [:create]
       end
