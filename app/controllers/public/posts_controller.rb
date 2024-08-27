@@ -26,9 +26,9 @@
       @post = Post.new(post_params)
       @post.customer = current_customer
       if @post.save
-        redirect_to about_path, notice: '正常に投稿されました。'
+        redirect_to public_posts_path, notice: '正常に投稿されました。'
       else
-        render :new
+        render :new, notice: '投稿に失敗しました'
       end
     end
 

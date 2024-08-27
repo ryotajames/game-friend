@@ -3,6 +3,10 @@
     <div class="col-md-8">
       <h1 class="card-header text-center">新規</h1>
 
+      <div >
+        <%= notice %>
+      </div>
+
       <%= form_with(model: @post, local: true) do |f| %>
         <% if @post.errors.any? %>
           <div id="error_explanation">

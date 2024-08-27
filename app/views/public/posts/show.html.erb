@@ -20,10 +20,10 @@
         <%= render "public/favorites/btn", post: @post %>
       </div>
         <% if @post.customer == current_customer %>
-          <div>
+          <div class = "ml-5" >
             <%= link_to "編集へ", edit_post_path(@post) %>
           </div>
-          <div>
+          <div class = "ml-5" >
             <%= link_to "削除", post_check_path(@post) %>
             <%#= link_to "削除", post_path(@post), method: :delete %>
           </div>
