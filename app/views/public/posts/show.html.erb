@@ -1,6 +1,6 @@
 <div class = "row" >
   <h2 class = "text-center mt-3 mr-5 ml-5" >投稿詳細</h2>
-  <p><%= link_to "このユーザーの詳細ページへ", customer_path(@post.customer.id) %></p>
+  <h5><%= link_to "＠" + @post.customer.name, customer_path(@post.customer.id) %></h5>
 </div>
 
 <div class = "row col-12" >
