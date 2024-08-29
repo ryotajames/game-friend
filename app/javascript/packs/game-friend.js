@@ -28,11 +28,12 @@ const animateFade = (entries, obs) => {
     }
   });
 };
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('turbolinks:load', () => { // Turbolinksイベントを使用
   const options = {
-  root: null, // ビューポートを基準にする（デフォルト）
-  rootMargin: '0px', // ビューポートからのマージン
-  threshold: 0.8 // 要素の50%が見えたらコールバックを呼び出す
+    root: null, // ビューポートを基準にする（デフォルト）
+    rootMargin: '0px', // ビューポートからのマージン
+    threshold: 0.8 // 要素の80%が見えたらコールバックを呼び出す
   };
 
   const fadeObserver = new IntersectionObserver(animateFade, options);
@@ -41,8 +42,4 @@ document.addEventListener('DOMContentLoaded', () => {
   fadeElements.forEach((fadeElement) => {
     fadeObserver.observe(fadeElement);
   });
-});
-
-fadeElements.forEach((fadeElement) => {
-  fadeObserver.observe(fadeElement);
 });
