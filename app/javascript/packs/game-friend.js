@@ -37,7 +37,6 @@ document.addEventListener('turbolinks:load', () => { // Turbolinksイベント�
   };
 
   const fadeObserver = new IntersectionObserver(animateFade, options);
-
   const fadeElements = document.querySelectorAll('.fadein');
   fadeElements.forEach((fadeElement) => {
     fadeObserver.observe(fadeElement);
