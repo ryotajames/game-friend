@@ -2,11 +2,17 @@
 <% if @customers.exists? %>
 <table>
   <tr>
-    <th>ユーザー名</th>
-    <% @customers.each do |a| %>
-        <th><%= link_to a.name, customer_path(a) %></th>
-    <% end %>
-    </tr>
+    <th valign = "top" >ユーザー名</th>
+    <th>
+      <% @customers.each do |a| %>
+        <div class = "column" >
+          <div>
+            <%= link_to a.name, customer_path(a) %>
+          </div>
+        </div>
+      <% end %>
+    </th>
+  </tr>
 </table>
 <% else %>
 <p>フォロー中のユーザーはいません</p>
