@@ -10,7 +10,7 @@
             <%= image_tag customer.get_profile_image(100,100), style:"size:auto;"  %>
           </div>
           <div class = "center-block" >
-            <%= link_to customer_path(customer.id) do %>
+            <%= link_to customer_path(customer.id), class: "text-decoration-none" do %>
               <p>
                 <%= customer.name %>
               </p>
