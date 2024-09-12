@@ -37,7 +37,7 @@
             <th></th>
             <td>
               <% if current_customer == @customer %>
-              <%= link_to '編集へ', edit_customer_path %>
+              <%= link_to '編集へ', edit_customer_path, class: "text-decoration-none" %>
               <% else %>
               <% end %>
             </td>
