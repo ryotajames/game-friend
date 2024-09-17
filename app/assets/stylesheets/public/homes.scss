@@ -11,7 +11,7 @@
   background-position: center;
   background-repeat: no-repeat;
   margin: 50px auto 0 auto;
-  padding-top: 25px;
+  padding-border-top: 25px;
 }
 
 .about-text-body {
@@ -40,7 +40,7 @@ $green: #39d24a;
 $yellow: #ffe244;
 $pink: #ff36a3;
 
-.top {
+.top-top {
   height: 100vh;
   overflow: hidden;
   // I do like these colours
@@ -61,4 +61,79 @@ $pink: #ff36a3;
   25% { background-color: $green; }
   50% { background-color: $yellow; }
   75% { background-color: $pink; }
+}
+
+.stroke {
+  max-width: 400px;
+  position: relative;
+}
+
+.stroke .border {
+  content: "";
+  position: absolute;
+  opacity: 0;
+}
+.stroke .border.border-top,
+.stroke .border.bottom {
+  width: calc(100% - 60px);
+}
+.stroke .border.border-top {
+  border-top: 3px solid blue;
+  right: 0;
+  border-top: 0;
+}
+.stroke .border.bottom {
+  bottom: 3px solid blue;
+  left: 0;
+  bottom: 0;
+}
+
+.stroke .border.right,
+.stroke .border.left {
+  height: calc(100% - 90px);
+}
+.stroke .border.right {
+  right: 3px solid blue;
+  right: 0;
+  border-top: 0;
+}
+.stroke .border.left {
+  left: 3px solid blue;
+  left: 0;
+  bottom: 0;
+}
+
+.stroke.is-animated .border {
+  opacity: 1;
+}
+
+.stroke.is-animated .border.border-top,
+.stroke.is-animated .border.bottom {
+  animation: stroke-width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stroke.is-animated .border.right,
+.stroke.is-animated .border.left {
+  animation: stroke-height 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes stroke-width {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+  100% {
+    width: calc(100% - 60px);
+    opacity: 1;
+  }
+}
+
+@keyframes stroke-height {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: calc(100% - 90px);
+    opacity: 1;
+  }
 }
