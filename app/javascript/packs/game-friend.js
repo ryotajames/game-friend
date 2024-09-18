@@ -40,3 +40,5 @@ document.addEventListener('turbolinks:load', () => { // Turbolinksイベント�
     fadeObserver.observe(fadeElement);
   });
 });
+
+

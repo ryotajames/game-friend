@@ -1,23 +1,28 @@
-<div class="d-flex flex-column mb-5" >
-  <div class = "controller", id = "about" >
-    <div class="m-5">
-      <h1 class="mt-xl-5 text-center about-text-title">Welcome to Game-Friend!</h1>
-    </div>
-    <div class = "m-auto mt-xl-5">
-      <p class="m-auto text-center about-text-body fw-lighter" >
-        game-friendはゲーム仲間を探したり、<br />
-        プレイの記録ができるサイトです！<br />
-        投稿内容やコメントの内容は多数の人が目にします、<br />
-        内容にはご注意ください
-      </p>
+<div class = "canvas canvas_class", id = "hoge"></div>
+
+    <%= javascript_pack_tag 'particles' %>
+    <%= javascript_pack_tag 'setting' %>
+
+  <div class="d-flex flex-column mb-5" >
+    <div class = "controller", id = "about" >
+      <div class="m-5">
+        <h1 class="mt-xl-5 text-center about-text-title">Welcome to Game-Friend!</h1>
+      </div>
+      <div class = "m-auto mt-xl-5">
+        <p class="m-auto text-center about-text-body fw-lighter" >
+          game-friendはゲーム仲間を探したり、<br />
+          プレイの記録ができるサイトです！<br />
+          投稿内容やコメントの内容は多数の人が目にします、<br />
+          内容にはご注意ください
+        </p>
+      </div>
     </div>
   </div>
-</div>
 
 
-<div class = "mt-5" >
+<div class = "mt-5 howtoplay" >
   <h3 class = "text-center italic fadein mt-5" >プレイ方法</h3>
-  <p class = "text-center mb-5 fadein" >
+  <p class = "text-center mb-5 fadein font-weight-bold" >
     左上にある<i class="fa-solid fa-circle-plus" style="color: #0840a1; font-size: 20px;"></i>マークから新規投稿ができます。<br />
     新規投稿マークの下にある<i class="fa-regular fa-bell" style= "color: #08480a1;"></i>マークから通知を確認できます<br />
     上部のマイページからプロフィール情報を編集できます。<br />
