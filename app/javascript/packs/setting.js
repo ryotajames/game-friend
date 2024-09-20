@@ -8,7 +8,7 @@ particlesJS('hoge',{
         "value":30, //シェイプの数
         "density":{
           "enable":true, //シェイプの密集度を変更するか否か
-          "value_area":200 //シェイプの密集度
+          "value_area":150 //シェイプの密集度
         }
       },
       "shape":{
@@ -87,7 +87,7 @@ particlesJS('hoge',{
 
 //--クリック時の処理----------
         "onclick":{
-          "enable":true, //クリックが有効か否か
+          "enable":false, //クリックが有効か否か
           "mode":"push" //クリック時に発動する動き(下記modes内のgrab、repulse、bubble、push、removeより選択)
         },
 //--------------------
@@ -107,7 +107,7 @@ particlesJS('hoge',{
 
 //--シェイプがカーソルから逃げる----------
         "repulse":{
-          "distance":100 //カーソルからの反応距離
+          "distance":50 //カーソルからの反応距離
         },
 //--------------------
 

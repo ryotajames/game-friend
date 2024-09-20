@@ -1,16 +1,18 @@
+<canvas id = "c" width="100%" height="100%" ></canvas>
 <div class="top-top d-flex flex-column justify-content-center top-background" style="height: 100vh; width: 100%;" >
     <div class = "m-auto" >
         <div class = "row col-12" >
             <div class = "col-3 ml-5" ></div>
-            <div>
-                <%= image_tag 'logo.png', size: '330x200', class: "d-flex justify-content-center mt-xl-5" %>
-            </div>
+            <p class = "text-white">
+                <%#= image_tag 'logo.png', size: '330x200', class: "d-flex justify-content-center mt-xl-5" %>
+
+            </p>
         </div>
 
-        <h1 class = "container text-center mt-5 display-3">welcome to Game-Friend!</h1>
+            <h1 class = "top-background container text-center mt-5 display-3 text-white">Welcome to Game-Friend!</h1>
 
         <h1 class = "container text-center mt-5">
-            <%= link_to 'Game-Friendを始める', about_path  %>
+            <%= link_to "Let's begin!", about_path  %>
         </h1>
     </div>
 </div>
