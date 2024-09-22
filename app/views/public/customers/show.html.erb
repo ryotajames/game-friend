@@ -1,104 +1,107 @@
-<div class = "row col-12" >
+<div class = "customer-show-background1" >
+  <i class="fa-solid fa-gamepad fa-2xl ml-3 mb-3"></i>
+</div>
+  <div class = "row col-12" >
 
-    <div class = "col-1" ></div>
-    <div class = "ml-xl-5 mt-5 mb-5" >
-      <h1 class = "mb-3" >プロフィール情報</h1>
-      <div class = "stroke anim is-animated p-3" >
-        <div class = "border border-top" ></div>
-        <div class = "border right" ></div>
-        <div class = "mt-3 row" >
-          <%= image_tag @customer.get_profile_image(100,100), class: "ml-xl-5 mr-5" %>
-          <table class = "ml-5" >
-            <tr>
-              <th>フォロー中</th>
-              <td><%= link_to @customer.followings.count, customer_followings_path(@customer) %></td>
-            </tr>
-            <tr>
-              <th>フォロワー</th>
-              <td><%= link_to @customer.followers.count, customer_followers_path(@customer) %></td>
-            </tr>
+      <div class = "col-1" ></div>
+      <div class = "ml-xl-5 mt-5 mb-5" >
+        <h1 class = "mb-3" >プロフィール情報</h1>
+        <div class = "stroke anim is-animated p-3" >
+          <div class = "border border-top" ></div>
+          <div class = "border right" ></div>
+          <div class = "mt-3 row" >
+            <%= image_tag @customer.get_profile_image(100,100), class: "ml-xl-5 mr-5" %>
+            <table class = "ml-5" >
+              <tr>
+                <th>フォロー中</th>
+                <td><%= link_to @customer.followings.count, customer_followings_path(@customer) %></td>
+              </tr>
+              <tr>
+                <th>フォロワー</th>
+                <td><%= link_to @customer.followers.count, customer_followers_path(@customer) %></td>
+              </tr>
 
-          </table>
+            </table>
 
-        </div>
+          </div>
 
-        <table class = "ml-5">
-          <tbody>
+          <table class = "ml-5">
+            <tbody>
+              <tr>
+                <th style = "height: 100px; width: 200px;" ><h3>ユーザー名</h3></th>
+                <td><h4><%= @customer.name %></h4></td>
+              </tr>
+              <tr>
+                <th style = "height: 100px; width: 200px;" ><h3>好きなゲーム</h3></th>
+                <td><h4><%= @customer.main_game %></h4></td>
+              </tr>
+              <tr>
+                <th style = "height: 100px; width: 200px;" ><h3>自己紹介</h3></th>
+                <td><h4><%= @customer.introduction %></h4></td>
+              </tr>
             <tr>
-              <th style = "height: 100px; width: 200px;" ><h3>ユーザー名</h3></th>
-              <td><h4><%= @customer.name %></h4></td>
-            </tr>
-            <tr>
-              <th style = "height: 100px; width: 200px;" ><h3>好きなゲーム</h3></th>
-              <td><h4><%= @customer.main_game %></h4></td>
-            </tr>
-            <tr>
-              <th style = "height: 100px; width: 200px;" ><h3>自己紹介</h3></th>
-              <td><h4><%= @customer.introduction %></h4></td>
-            </tr>
-          <tr>
-            <th></th>
-            <td>
-              <% if current_customer == @customer %>
-              <%= link_to '編集へ', edit_customer_path, class: "text-decoration-none" %>
-              <% else %>
-              <% end %>
-              <% if @customer.id == current_customer.id %>
-              <%= link_to "退会", check_customers_path %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <% if current_customer != @customer %>
-                <% if current_customer.following?(@customer) %>
-                  <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete, class: "btn btn-info mb-5" %>
+              <th></th>
+              <td>
+                <% if current_customer == @customer %>
+                <%= link_to '編集へ', edit_customer_path, class: "text-decoration-none" %>
                 <% else %>
-                  <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post, class: "btn btn-info mb-5" %>
                 <% end %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <% if @customer.id == current_customer.id %>
+                <%= link_to "退会", check_customers_path %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <% if current_customer != @customer %>
+                  <% if current_customer.following?(@customer) %>
+                    <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete, class: "btn btn-info mb-5" %>
+                  <% else %>
+                    <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post, class: "btn btn-info mb-5" %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-        <% unless @customer.id == current_customer.id %>
-          <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
-          <% if @isRoom == true %>
-            <p class="user-show-room"><a href="/public/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-          <% else %>
-            <%= form_for Room.new, url: public_rooms_path do |f| %>
-              <%= fields_for @entry do |e| %>
-                <%= e.hidden_field :customer_id, value: @customer.id %>
+          <% unless @customer.id == current_customer.id %>
+            <% if (current_customer.following? @customer) && (@customer.following? current_customer)  %>
+            <% if @isRoom == true %>
+              <p class="user-show-room"><a href="/public/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+            <% else %>
+              <%= form_for Room.new, url: public_rooms_path do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <%= e.hidden_field :customer_id, value: @customer.id %>
+                <% end %>
+                <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
               <% end %>
-              <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+            <% end %>
             <% end %>
           <% end %>
-          <% end %>
-        <% end %>
-        <div class = "border left" ></div>
-        <div class = "border bottom" ></div>
+          <div class = "border left" ></div>
+          <div class = "border bottom" ></div>
+        </div>
+
       </div>
 
-    </div>
+      <div class = "col-2" ></div>
 
-    <div class = "col-2" ></div>
+      <div>
+        <h2 class = "mt-xl-5 ml-5">投稿一覧</h2>
 
-    <div>
-      <h2 class = "mt-xl-5 ml-5">投稿一覧</h2>
+          <% @posts.each do |a| %>
+            <table>
+              <tbody>
+                <th><%= image_tag a.image, size: "100x100", class: "mt-3" %></th>
+                <th>
+                  <div class = "d-inline-block text-truncate", style = "width: 100px;" >
+                    <%= link_to a.post_introduction, post_path(a) %>
+                  </div>
+                </th>
+              </tbody>
+            </table>
+          <% end %>
+      </div>
 
-        <% @posts.each do |a| %>
-          <table>
-            <tbody>
-              <th><%= image_tag a.image, size: "100x100", class: "mt-3" %></th>
-              <th>
-                <div class = "d-inline-block text-truncate", style = "width: 100px;" >
-                  <%= link_to a.post_introduction, post_path(a) %>
-                </div>
-              </th>
-            </tbody>
-          </table>
-        <% end %>
-    </div>
-
-</div>
+  </div>

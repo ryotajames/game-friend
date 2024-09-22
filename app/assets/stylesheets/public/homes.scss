@@ -149,7 +149,7 @@ $pink: #ff36a3;
 }
 
 #hoge{
-    position: fixed; /* ページ全体を背景に */
+  position: fixed; /* ページ全体を背景に */
   top: 0;
   left: 0;
   width: 100%;
@@ -169,6 +169,19 @@ canvas {
   z-index: -1;
 }
 
-.top-background {
-  background-color: rgba(153, 255, 255, 0.2);
+.customer-show-background1 {
+  font-family: "Font Awesome 5 Free"; /* 使用しているバージョンに合わせて変更 */
+  font-weight: 900; /* Solidアイコンの場合 */
+  color: rgba(211, 211, 211, 0.3); /* 薄めのグレー */
+  font-size: 250pt; /* 指定したサイズ */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* 背景にするため */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20pt;
 }
